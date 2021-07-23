@@ -19,5 +19,20 @@ public class RetrofitBuilder {
         return retrofit.create(AuthApiEndpointInterface.class);
     }
 
+    public static MovieListsApiEndpointInterface getMovieApi() {
+        return retrofit.create(MovieListsApiEndpointInterface.class);
+    }
+
+    public static MovieDetailsApi getMovieDetailApi() {
+        return retrofit.create(MovieDetailsApi.class);
+    }
+
+    public static AccountApiEndpointInterface getAccountApi() {
+        return retrofit.create(AccountApiEndpointInterface.class);
+    }
+
+    public static CreateListApiEndpointInterface getCreateListApi() {
+        return retrofit.create(CreateListApiEndpointInterface.class);
+    }
 }
 
