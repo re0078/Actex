@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         res = getResources();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
     }
 }
