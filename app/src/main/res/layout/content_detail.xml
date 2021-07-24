@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_marginTop="20dp"
+    tools:showIn="@layout/activity_detail">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_margin="20dp">
+
+       <TextView
+           android:id="@+id/director_text_view"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Director: Matt Reveves"
+           android:textColor="@color/gray"
+           android:textStyle="bold"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
+       <TextView
+           android:id="@+id/country_year_length_text_view"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="USA, 2014, 130 min"
+           android:textColor="@color/gray"
+           android:textStyle="bold"
+           android:layout_marginTop="5dp"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/director_text_view" />
+
+       <LinearLayout
+           android:id="@+id/linearLayout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="10dp"
+           app:layout_constraintEnd_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/country_year_length_text_view">
+
+           <TextView
+               android:id="@+id/item_cat1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center_horizontal"
+               android:layout_marginTop="15dp"
+               android:background="@drawable/shape_kind"
+               android:gravity="center_horizontal"
+               android:padding="10dp"
+               android:text="Adventure"
+               android:textColor="@color/gray"
+               android:textSize="10dp"
+               android:textStyle="bold" />
+
+           <TextView
+               android:id="@+id/item_cat2"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center_horizontal"
+               android:layout_marginTop="15dp"
+               android:background="@drawable/shape_kind"
+               android:gravity="center_horizontal"
+               android:padding="10dp"
+               android:text="Family"
+               android:textColor="@color/gray"
+               android:textSize="10dp"
+               android:textStyle="bold" />
+
+           <TextView
+               android:id="@+id/item_cat3"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center_horizontal"
+               android:layout_marginTop="15dp"
+               android:background="@drawable/shape_kind"
+               android:gravity="center_horizontal"
+               android:padding="10dp"
+               android:text="Fantasy"
+               android:textColor="@color/gray"
+               android:textSize="10dp"
+               android:textStyle="bold" />
+       </LinearLayout>
+
+       <ImageView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentEnd="true"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           app:srcCompat="@drawable/ic_baseline_share_36" />
+
+       <RatingBar
+           android:id="@+id/item_rating_bar"
+           style="?android:attr/ratingBarStyleSmall"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:isIndicator="true"
+           android:numStars="10"
+           android:rating="8.1"
+           app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           android:theme="@style/RatingBar"
+           app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/item_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem"
+            android:textColor="@color/white"
+            android:elevation="3dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Screenshots"
+            android:textColor="@color/white"
+            android:elevation="5dp"
+            android:paddingTop="10dp"
+            android:textSize="16dp" />
+
+        <view class="androidx.appcompat.app.AlertController$RecycleListView"
+            android:id="@+id/recycler_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

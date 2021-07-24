@@ -8,20 +8,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 
-import com.mobiledevelopment.actex.MainActivity;
 import com.mobiledevelopment.actex.R;
 import com.mobiledevelopment.actex.clients.MovieListsApiEndpointInterface;
 import com.mobiledevelopment.actex.clients.RetrofitBuilder;
 import com.mobiledevelopment.actex.models.Movie;
 import com.mobiledevelopment.actex.models.lists.MovieList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
