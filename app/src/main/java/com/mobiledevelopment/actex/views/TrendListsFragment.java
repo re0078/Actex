@@ -49,16 +49,15 @@ public class TrendListsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        View listFragment = inflater.inflate(R.layout.fragment_lists, container, false);
-//        recent = listFragment.findViewById(R.id.recently_played_recycler);
-//        mostPopular = listFragment.findViewById(R.id.most_popular_recycler);
-//        topRated = listFragment.findViewById(R.id.top_rated_recycler);
-//        res = getResources();
-//        ArrayList<RecyclerView> recyclerViews = setAdapters();
-//        MovieListBuilder movieListBuilder = new MovieListBuilder(res.getString(R.string.api_key));
-//        prepareLists(movieListBuilder, recyclerViews);
-//        return listFragment;
-        return inflater.inflate(R.layout.fragment_first, container, false); // TODO
+        View listFragment = inflater.inflate(R.layout.fragment_lists, container, false);
+        recent = listFragment.findViewById(R.id.recently_played_recycler);
+        mostPopular = listFragment.findViewById(R.id.most_popular_recycler);
+        topRated = listFragment.findViewById(R.id.top_rated_recycler);
+        res = getResources();
+        ArrayList<RecyclerView> recyclerViews = setAdapters();
+        MovieListBuilder movieListBuilder = new MovieListBuilder(res.getString(R.string.api_key));
+        prepareLists(movieListBuilder, recyclerViews);
+        return listFragment;
     }
 
     public void prepareLists(MovieListBuilder movieListBuilder, ArrayList<RecyclerView> recyclerViews) {
