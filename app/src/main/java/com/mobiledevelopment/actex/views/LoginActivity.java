@@ -7,6 +7,8 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mobiledevelopment.actex.R;
@@ -30,6 +32,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         res = getResources();
+        Button loginButton = findViewById(R.id.login_button);
+        EditText username = findViewById(R.id.login_username_input);
+        EditText password = findViewById(R.id.login_password_input);
+        loginButton.setOnClickListener(view -> {
+            String name = username.getText().toString();
+            String pass = password.getText().toString();
+            login(name, pass);
+        });
     }
 
     private void loadSignUpPage() {
@@ -47,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     protected void getRequestToken(final AuthApiEndpointInterface myAuthApi, final String apiKey) {
-        Log.i("salam", "getRequestToken");
         Call<Token> call = myAuthApi.getRequestToken(apiKey);
 
         call.enqueue(new Callback<Token>() {
@@ -56,8 +65,11 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     User.getInstance().setRequestToken(response.body());
                     validateRequestToken(myAuthApi, apiKey);
+                    Toast.makeText(getApplicationContext(), "Logged in successfully",
+                            Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(),"failed to connect!"+response.code(),Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "failed to connect!"
+                            + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -83,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                     User.getInstance().setRequestToken(response.body());
                     getSessionId(myAuthApi, apiKey);
                 } else {
-                    Toast.makeText(getApplicationContext(),"failed to connect!"+response.code(),Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "failed to connect!" + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -111,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                     User.getInstance().setSessionToken(response.body());
                     User.getInstance().setLoginSuccess(User.LoginSuccess.SUCCEED);
                 } else {
-                    Toast.makeText(getApplicationContext(),"failed to connect!"+response.code(),Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "failed to connect!" + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
