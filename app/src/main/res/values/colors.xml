@@ -11,4 +11,5 @@
     <color name="ratingColor">#109D3D</color>
     <color name="colorPrimary">#9D0C0C</color>
     <color name="backgroundDark">#1d1d27</color>
+    <color name="black_700">#1B1A1A</color>
 </resources>
