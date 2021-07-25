@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="225dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/movie_item_state"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/activity_horizontal_margin"
+    tools:ignore="UseCompoundDrawables">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+
+        app:cardElevation="6dp"
+        app:cardCornerRadius="12dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <ImageView
+            android:id="@+id/movieImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/movie_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/movie_image_drawable" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!--        app:srcCompat="@drawable/ic_launcher_background" />-->
+    <TextView
+        android:id="@+id/movieNameText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/movie_name"
+        android:textAlignment="center"
+        style="@style/movie_name"
+         />
+</LinearLayout>
+
+<!--    android:layout_width="164dp"-->
+<!--    android:layout_height="225dp"-->

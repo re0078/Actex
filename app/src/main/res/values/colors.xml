@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="yellowTitle">#f5c611</color>
     <color name="ratingColor">#109D3D</color>
+    <color name="colorPrimary">#9D0C0C</color>
+    <color name="backgroundDark">#1d1d27</color>
 </resources>
