@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.mobiledevelopment.actex.clients.AuthApiEndpointInterface;
 import com.mobiledevelopment.actex.models.User;
@@ -20,6 +21,7 @@ import com.mobiledevelopment.actex.views.MovieDetailActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.internal.EverythingIsNonNull;
 
 import static com.mobiledevelopment.actex.clients.RetrofitBuilder.getAuthApi;
 
@@ -65,12 +67,15 @@ public class MainActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<Token>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.isSuccessful()) {
                     User.getInstance().setRequestToken(response.body());
                     validateRequestToken(myAuthApi, apiKey);
+                    //TODO handle showing movies list
                     Toast.makeText(getApplicationContext(), "Logged in successfully",
                             Toast.LENGTH_LONG).show();
+
                     Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
                     MainActivity.this.startActivity(intent);
                 } else {
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<Token> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -91,11 +97,12 @@ public class MainActivity extends AppCompatActivity {
         String requestToken = User.getInstance().getRequestToken().requestToken;
         String username = User.getInstance().getUsername();
         String password = User.getInstance().getPassword();
-        Log.i("salam", "validateRequestToken");
+        Log.i(TAG, "validateRequestToken");
 
         Call<Token> call = myAuthApi.getValidateToken(apiKey, username, password, requestToken);
         call.enqueue(new Callback<Token>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.isSuccessful()) {
                     User.getInstance().setRequestToken(response.body());
@@ -106,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<Token> call, Throwable t) {
                 Log.i("salam", "validateRequestTok " + t.getMessage());
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
@@ -116,12 +124,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void getSessionId(AuthApiEndpointInterface myAuthApi, final String apiKey) {
         String requestToken = User.getInstance().getRequestToken().requestToken;
-        Log.i("salam", requestToken);
+        Log.i(TAG, requestToken);
 
         Call<Session> call = myAuthApi.getUserSession(apiKey, requestToken);
 
         call.enqueue(new Callback<Session>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<Session> call, Response<Session> response) {
                 Log.i("succeed", response.message());
 
@@ -134,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<Session> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -147,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         Call<Object> logout = myAuthApi.logout(res.getString(R.string.api_key), User.getInstance().getSessionToken().getSessionId());
         logout.enqueue(new Callback<Object>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<Object> call, Response<Object> response) {
 
                 if (response.code() == 200) {
@@ -159,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<Object> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
