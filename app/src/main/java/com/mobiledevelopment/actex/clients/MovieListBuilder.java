@@ -23,8 +23,8 @@ public class MovieListBuilder {
         Call<MovieList> movieList;
         MovieListsApiEndpointInterface movieListsApi = RetrofitBuilder.getMovieApi();
         switch (trendListType) {
-            case LATEST:
-                movieList = movieListsApi.getLatestMovies(apiKey);
+            case UPCOMING:
+                movieList = movieListsApi.getUpcomingMovies(apiKey);
                 break;
             case TOP_RATED:
                 movieList = movieListsApi.getTopRated(apiKey);

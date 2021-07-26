@@ -8,8 +8,8 @@ import retrofit2.http.Query;
 
 public interface MovieListsApiEndpointInterface {
 
-    @GET("movie/now_playing")
-    Call<MovieList> getLatestMovies(@Query("api_key") String apiKey);
+    @GET("movie/upcoming")
+    Call<MovieList> getUpcomingMovies(@Query("api_key") String apiKey);
 
     @GET("movie/popular")
     Call<MovieList> getPopularMovies(@Query("api_key") String apiKey);
