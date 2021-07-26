@@ -28,6 +28,10 @@
         <entry key="app/src/main/res/layout/fragment_lists.xml" value="0.2328125" />
         <entry key="app/src/main/res/layout/fragment_movie.xml" value="0.10960144927536232" />
         <entry key="app/src/main/res/layout/fragment_playlist.xml" value="0.23369565217391305" />
+        <entry key="app/src/main/res/layout/fragment_playlist_movies.xml" value="0.19947916666666668" />
+        <entry key="app/src/main/res/layout/item_movie.xml" value="0.19895833333333332" />
+        <entry key="app/src/main/res/layout/movie_layout.xml" value="0.17572463768115942" />
+        <entry key="app/src/main/res/layout/playlist_detailed_layout.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/layout/playlist_layout.xml" value="0.25" />
       </map>
     </option>

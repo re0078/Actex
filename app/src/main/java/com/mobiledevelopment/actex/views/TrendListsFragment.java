@@ -76,9 +76,9 @@ public class TrendListsFragment extends Fragment {
         for (int i = 0; i < TrendListType.values().length; i++) {
             RecyclerView recyclerView = recyclerViews.get(i);
             TrendListType trendListType = TrendListType.values()[i];
-            movieListBuilder.getMovieList(trendListType, trendListType.adapter);
-            recyclerView.setAdapter(trendListType.adapter);
-            trendListType.adapter.setOnClickListener(onMovieClickListener);
+            movieListBuilder.getMovieList(trendListType, trendListType.getAdapter());
+            recyclerView.setAdapter(trendListType.getAdapter());
+            trendListType.getAdapter().setListener(onMovieClickListener);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             SnapHelper snapHelper = new LinearSnapHelper();
             snapHelper.attachToRecyclerView(recyclerView);

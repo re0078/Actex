@@ -15,11 +15,14 @@ import com.mobiledevelopment.actex.models.User;
 import com.mobiledevelopment.actex.models.account.Account;
 import com.mobiledevelopment.actex.models.lists.ListResponse;
 import com.mobiledevelopment.actex.models.Playlist;
+import com.mobiledevelopment.actex.models.lists.PlaylistResponse;
 import com.mobiledevelopment.actex.models.network.Session;
 import com.mobiledevelopment.actex.models.network.Token;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -205,7 +208,19 @@ public class ApiUtil {
             public void onResponse(Call<ListResponse<Playlist>> call, Response<ListResponse<Playlist>> response) {
                 if (response.isSuccessful()) {
                     Log.i(TAG, "Received lists");
-                    future.complete(response.body());
+                    assert response.body() != null;
+                    List<Playlist> playlists = response.body().getResults();
+                    AtomicInteger checkedPlaylists = new AtomicInteger(0);
+                    playlists.forEach(playlist -> {
+                        CompletableFuture<PlaylistResponse> playlistFuture = new CompletableFuture<>();
+                        fetchPlaylistMovies(playlist.getId(), apiKey, playlistFuture);
+                        playlistFuture.whenComplete((pResp, t) -> {
+                            playlist.setMovies(pResp.getItems());
+                            if (checkedPlaylists.incrementAndGet() == playlists.size()) {
+                                future.complete(response.body());
+                            }
+                        });
+                    });
                 } else {
                     future.complete(null);
                 }
@@ -226,7 +241,7 @@ public class ApiUtil {
             @Override
             public void onResponse(Call<ListResponse<Movie>> call, Response<ListResponse<Movie>> response) {
                 if (response.isSuccessful()) {
-                    Log.i(TAG, "Received lists");
+                    Log.i(TAG, "Received favorites");
                     future.complete(response.body());
                 } else {
                     future.complete(null);
@@ -242,13 +257,13 @@ public class ApiUtil {
 
     public void getWatchlistMovies(String apiKey, CompletableFuture<ListResponse<Movie>> future) {
         ListsApiEndpointInterface listsApi = getListApi();
-        Call<ListResponse<Movie>> getListsCall = listsApi.getFavoriteMovies(user.getAccount().getId(), apiKey,
+        Call<ListResponse<Movie>> getListsCall = listsApi.getWatchlistMovies(user.getAccount().getId(), apiKey,
                 user.getSessionToken().getSessionId());
         getListsCall.enqueue(new Callback<ListResponse<Movie>>() {
             @Override
             public void onResponse(Call<ListResponse<Movie>> call, Response<ListResponse<Movie>> response) {
                 if (response.isSuccessful()) {
-                    Log.i(TAG, "Received lists");
+                    Log.i(TAG, "Received watchlist");
                     future.complete(response.body());
                 } else {
                     future.complete(null);
@@ -257,6 +272,27 @@ public class ApiUtil {
 
             @Override
             public void onFailure(Call<ListResponse<Movie>> call, Throwable t) {
+                future.complete(null);
+            }
+        });
+    }
+
+    public void fetchPlaylistMovies(int listId, String apiKey, CompletableFuture<PlaylistResponse> future) {
+        ListsApiEndpointInterface listsApi = getListApi();
+        Call<PlaylistResponse> getListsCall = listsApi.getPlaylistMovies(listId, apiKey, "en");
+        getListsCall.enqueue(new Callback<PlaylistResponse>() {
+            @Override
+            public void onResponse(Call<PlaylistResponse> call, Response<PlaylistResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.i(TAG, "Received playlist " + listId);
+                    future.complete(response.body());
+                } else {
+                    future.complete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PlaylistResponse> call, Throwable t) {
                 future.complete(null);
             }
         });
