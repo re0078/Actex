@@ -27,4 +27,5 @@ public class Playlist {
     private String name;
     @SerializedName("poster_path")
     private String posterPath;
+    private List<Movie> movies;
 }
