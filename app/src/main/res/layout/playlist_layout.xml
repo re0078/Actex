@@ -8,13 +8,13 @@
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/playlist_play"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/play_button_background"
         android:contentDescription="@string/play_button_desc"
-        android:src="@drawable/ic_baseline_play_arrow_36"
+        android:src="@drawable/ic_baseline_play_arrow_30"
         app:layout_constraintBottom_toBottomOf="@id/playlist_layout"
-        app:layout_constraintEnd_toEndOf="@id/playlist_layout"
+        app:layout_constraintEnd_toStartOf="@id/delete_playlist_button"
         app:layout_constraintStart_toEndOf="@id/playlist_preview" />
 
     <ImageView
@@ -35,11 +35,36 @@
         android:inputType="text"
         android:text="@string/default_playlist_name"
         android:textAlignment="center"
-        android:textColor="#FFC107"
+        android:textColor="@color/main_color"
         android:textColorHint="#80FFC107"
-        android:focusableInTouchMode="true"
-        app:layout_constraintEnd_toEndOf="@id/playlist_layout"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toStartOf="@id/rename_playlist_button"
         app:layout_constraintStart_toEndOf="@id/playlist_preview"
-        app:layout_constraintTop_toTopOf="@id/playlist_layout" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/rename_playlist_button"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_baseline_check_box_30"
+        android:background="@drawable/playlist_cornered_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playlist_name"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/delete_playlist_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_delete_30"
+        android:background="@drawable/playlist_cornered_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playlist_play"
+        android:layout_marginEnd="40dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
