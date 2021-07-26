@@ -10,6 +10,7 @@ import com.mobiledevelopment.actex.clients.AuthApiEndpointInterface;
 import com.mobiledevelopment.actex.clients.ListsApiEndpointInterface;
 import com.mobiledevelopment.actex.clients.RetrofitBuilder;
 import com.mobiledevelopment.actex.models.Movie;
+import com.mobiledevelopment.actex.models.SimpleResponse;
 import com.mobiledevelopment.actex.models.User;
 import com.mobiledevelopment.actex.models.account.Account;
 import com.mobiledevelopment.actex.models.lists.ListResponse;
@@ -17,6 +18,7 @@ import com.mobiledevelopment.actex.models.Playlist;
 import com.mobiledevelopment.actex.models.network.Session;
 import com.mobiledevelopment.actex.models.network.Token;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 import lombok.AccessLevel;
@@ -175,6 +177,23 @@ public class ApiUtil {
             }
         });
 
+    }
+
+    public void deletePlaylist(String listId, String apiKey, CompletableFuture<Boolean> future) {
+        ListsApiEndpointInterface listsApi = getListApi();
+        Call<SimpleResponse> getListsCall = listsApi.deletePlaylist(listId, apiKey,
+                user.getSessionToken().getSessionId());
+        getListsCall.enqueue(new Callback<SimpleResponse>() {
+            @Override
+            public void onResponse(Call<SimpleResponse> call, Response<SimpleResponse> response) {
+                future.complete(true);
+            }
+
+            @Override
+            public void onFailure(Call<SimpleResponse> call, Throwable t) {
+                future.complete(false);
+            }
+        });
     }
 
     public void getPlaylists(String apiKey, CompletableFuture<ListResponse<Playlist>> future) {

@@ -49,12 +49,12 @@ public class PlaylistFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = PlaylistAdapter.getInstance();
+        activity = getActivity();
+        assert activity != null;
+        adapter = PlaylistAdapter.getInstance(activity);
         adapter.setPlaylists(new ArrayList<>());
         listsApiEndpointInterface = RetrofitBuilder.getListApi();
         apiUtil = ApiUtil.getInstance();
-        activity = getActivity();
-        assert activity != null;
     }
 
     @Nullable
@@ -82,8 +82,32 @@ public class PlaylistFragment extends Fragment {
                             .fixedName(true)
                             .posterPath((String) result.getResults().get(0).getPosterPath()).build();
                     adapter.setPlaylists(new ArrayList<>());
-                    adapter.getPlaylists().add(0, favoriteMoviesPlaylist);
+                    adapter.getPlaylists().add(favoriteMoviesPlaylist);
                     adapter.notifyItemInserted(0);
+                }
+            } else {
+                Toast.makeText(getContext(), "Unable to fetch playlists", Toast.LENGTH_LONG).show();
+            }
+            getWatchlistMovies();
+        });
+    }
+
+    private void getWatchlistMovies() {
+        CompletableFuture<ListResponse<Movie>> moviesFuture = new CompletableFuture<>();
+        activity.runOnUiThread(() -> apiUtil.getWatchlistMovies(getString(R.string.api_key), moviesFuture));
+        moviesFuture.whenComplete((result, t) -> {
+            if (Objects.nonNull(result)) {
+                if (result.getResults().isEmpty()) {
+                    Toast.makeText(getContext(), "Your watchlist is empty", Toast.LENGTH_LONG).show();
+                } else {
+                    Playlist watchlistMoviesPlaylist = Playlist.builder()
+                            .name(getString(R.string.favorite_list_title))
+                            .itemCount(result.getResults().size())
+                            .fixedName(true)
+                            .posterPath((String) result.getResults().get(0).getPosterPath()).build();
+                    adapter.setPlaylists(new ArrayList<>());
+                    adapter.getPlaylists().add(watchlistMoviesPlaylist);
+                    adapter.notifyItemInserted(1);
                 }
             } else {
                 Toast.makeText(getContext(), "Unable to fetch playlists", Toast.LENGTH_LONG).show();

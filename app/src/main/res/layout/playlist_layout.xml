@@ -26,13 +26,12 @@
         app:layout_constraintStart_toStartOf="@id/playlist_layout"
         app:layout_constraintTop_toTopOf="@id/playlist_layout" />
 
-    <EditText
+    <TextView
         android:id="@+id/playlist_name"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:background="@drawable/playlist_name_background"
         android:hint="@string/playlist_name_hint"
-        android:inputType="text"
         android:text="@string/default_playlist_name"
         android:textAlignment="center"
         android:textColor="@color/main_color"
@@ -53,6 +52,7 @@
         app:layout_constraintStart_toEndOf="@id/playlist_name"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
+        android:visibility="invisible"
         />
 
     <androidx.appcompat.widget.AppCompatImageButton

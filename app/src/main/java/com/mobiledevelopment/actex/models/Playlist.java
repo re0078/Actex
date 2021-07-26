@@ -17,7 +17,7 @@ public class Playlist {
     private String description;
     @SerializedName("favourite_count")
     private int favouriteCount;
-    private String id;
+    private int id;
     @SerializedName("item_count")
     private int itemCount;
     @SerializedName("iso_639_1")

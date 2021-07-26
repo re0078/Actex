@@ -129,4 +129,5 @@
     <string name="favorite_list_title">FAVORITE</string>
     <string name="watch_list_title">WATCHLIST</string>
     <string name="custom_list_title">CUSTOM</string>
+    <string name="access_token">eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyODQ4ODY2YzdlMDcwOTQyNWY5NTZiMjI3NGRlZWMxMyIsInN1YiI6IjYwZmM0ZWQ5MGRlYTZlMDA1ZThmYjQ1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.61fMOEgvNyI4HaIbcqaLyBZ3Yscgn2mSsfZu-Ddomkw</string>
 </resources>
