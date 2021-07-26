@@ -7,32 +7,36 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBuilder {
-    private static String baseUrl = "https://api.themoviedb.org/3/";
+    private static final String API_VER_3 = "https://api.themoviedb.org/3/";
 
     static Gson gson = new GsonBuilder().setLenient().create();
-    static Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(baseUrl)
+    private static final Retrofit RETROFIT = new Retrofit.Builder()
+            .baseUrl(API_VER_3)
             .addConverterFactory(GsonConverterFactory.create(gson)).build();
 
 
     public static AuthApiEndpointInterface getAuthApi() {
-        return retrofit.create(AuthApiEndpointInterface.class);
+        return RETROFIT.create(AuthApiEndpointInterface.class);
     }
 
     public static MovieListsApiEndpointInterface getMovieApi() {
-        return retrofit.create(MovieListsApiEndpointInterface.class);
+        return RETROFIT.create(MovieListsApiEndpointInterface.class);
     }
 
     public static MovieDetailsApi getMovieDetailApi() {
-        return retrofit.create(MovieDetailsApi.class);
+        return RETROFIT.create(MovieDetailsApi.class);
     }
 
     public static AccountApiEndpointInterface getAccountApi() {
-        return retrofit.create(AccountApiEndpointInterface.class);
+        return RETROFIT.create(AccountApiEndpointInterface.class);
     }
 
     public static CreateListApiEndpointInterface getCreateListApi() {
-        return retrofit.create(CreateListApiEndpointInterface.class);
+        return RETROFIT.create(CreateListApiEndpointInterface.class);
+    }
+
+    public static ListsApiEndpointInterface getListApi(){
+        return RETROFIT.create(ListsApiEndpointInterface.class);
     }
 }
 

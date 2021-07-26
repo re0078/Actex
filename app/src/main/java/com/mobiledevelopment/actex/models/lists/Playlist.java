@@ -10,10 +10,6 @@ import lombok.Data;
 
 @Data
 public class Playlist {
-    private java.util.List<Movie> results = new ArrayList<>();
-    private List<Movie> items = new ArrayList<>();
-    @SerializedName("created_by")
-    private String createdBy;
     private String description;
     @SerializedName("favourite_count")
     private int favouriteCount;
@@ -22,6 +18,8 @@ public class Playlist {
     private int itemCount;
     @SerializedName("iso_639_1")
     private String lang;
+    @SerializedName("list_type")
+    private String listType;
     private String name;
     @SerializedName("poster_path")
     private String posterPath;
