@@ -10,15 +10,17 @@ import android.view.MenuInflater;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
-
+import com.mobiledevelopment.actex.MainActivity;
 import com.mobiledevelopment.actex.R;
 import com.mobiledevelopment.actex.clients.MovieListsApiEndpointInterface;
 import com.mobiledevelopment.actex.clients.RetrofitBuilder;
 import com.mobiledevelopment.actex.models.Movie;
 import com.mobiledevelopment.actex.models.lists.MovieList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,22 +37,22 @@ public class SearchableActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_searchable); // TODO
+        setContentView(R.layout.activity_searchable); // TODO
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Log.i(TAG, "onCreate: ");
-//        searchResultLv = findViewById(R.id.search_result_lv);
-//        adapter = new SearchResultAdapter(this, new ArrayList<Movie>());
-//        adapter.setOnClickListener(movie -> {
-//            Log.i(TAG, "onItemClick: " + movie);
-//            Intent intent = new Intent(SearchableActivity.this, MainActivity.class);
-//            intent.putExtra("searchRes", movie);
-//            startActivity(intent);
-//        });
-//        searchResultLv.setAdapter(adapter);
-//        Intent intent = getIntent();
-//        handleIntent(intent); // TODO
+        searchResultLv = findViewById(R.id.search_result_lv);
+        adapter = new SearchResultAdapter(this, new ArrayList<Movie>());
+        adapter.setOnClickListener(movie -> {
+            Log.i(TAG, "onItemClick: " + movie);
+            Intent intent = new Intent(SearchableActivity.this, MainActivity.class);
+            intent.putExtra("searchRes", movie);
+            startActivity(intent);
+        });
+        searchResultLv.setAdapter(adapter);
+        Intent intent = getIntent();
+        handleIntent(intent); // TODO
     }
 
     @Override
@@ -97,10 +99,10 @@ public class SearchableActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.options_menu, menu);
+        inflater.inflate(R.menu.options_menu, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName())); // TODO
+        SearchView searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName())); // TODO
         return true;
     }
 }
