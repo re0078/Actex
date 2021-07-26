@@ -6,7 +6,7 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string name="search_action_title">search</string>
     <string name="movie_name">TextView</string>
     <string name="upcoming_movies">upcoming</string>
     <string name="most_popular_movies">most popular</string>
