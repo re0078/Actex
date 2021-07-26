@@ -40,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
             String pass = password.getText().toString();
             login(name, pass);
         });
+        Button signUpButton = findViewById(R.id.sign_up_button);
+        signUpButton.setOnClickListener(view -> loadSignUpPage());
     }
 
     private void loadSignUpPage() {
@@ -65,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     User.getInstance().setRequestToken(response.body());
                     validateRequestToken(myAuthApi, apiKey);
+                    //TODO handle showing movies list
                     Toast.makeText(getApplicationContext(), "Logged in successfully",
                             Toast.LENGTH_LONG).show();
                 } else {

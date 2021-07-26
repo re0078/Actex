@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/playlist_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/playlist_play"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/play_button_background"
+        android:contentDescription="@string/play_button_desc"
+        android:src="@drawable/ic_baseline_play_arrow_36"
+        app:layout_constraintBottom_toBottomOf="@id/playlist_layout"
+        app:layout_constraintEnd_toEndOf="@id/playlist_layout"
+        app:layout_constraintStart_toEndOf="@id/playlist_preview" />
+
+    <ImageView
+        android:id="@+id/playlist_preview"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:contentDescription="@string/playlist_preview_desc"
+        app:layout_constraintBottom_toBottomOf="@id/playlist_layout"
+        app:layout_constraintStart_toStartOf="@id/playlist_layout"
+        app:layout_constraintTop_toTopOf="@id/playlist_layout" />
+
+    <EditText
+        android:id="@+id/playlist_name"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/playlist_name_background"
+        android:hint="@string/playlist_name_hint"
+        android:inputType="text"
+        android:text="@string/default_playlist_name"
+        android:textAlignment="center"
+        android:textColor="#FFC107"
+        android:textColorHint="#80FFC107"
+        app:layout_constraintEnd_toEndOf="@id/playlist_layout"
+        app:layout_constraintStart_toEndOf="@id/playlist_preview"
+        app:layout_constraintTop_toTopOf="@id/playlist_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
