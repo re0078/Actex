@@ -25,6 +25,10 @@
             android:name=".views.MovieDetailActivity"
             android:theme="@style/Theme.Actex.NoActionBar">
         </activity>
+        <activity
+            android:name=".views.SearchableActivity"
+            android:theme="@style/Theme.Actex.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

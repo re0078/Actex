@@ -123,6 +123,7 @@
     <string name="play_trailer">play trailer</string>
     <string name="logout_desc">Logout</string>
     <string name="playlists_desc">Playlists</string>
+    <string name="search_desc">Search</string>
     <string name="actex_logo_desc">actex_logo</string>
     <string name="side_logo_desc">Side logo</string>
     <string name="sign_up_url">https://www.themoviedb.org/signup</string>
