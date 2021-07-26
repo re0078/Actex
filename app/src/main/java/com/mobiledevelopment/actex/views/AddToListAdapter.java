@@ -3,6 +3,7 @@ package com.mobiledevelopment.actex.views;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobiledevelopment.actex.R;
 import com.mobiledevelopment.actex.models.lists.ListResult;
+import com.mobiledevelopment.actex.utils.UIUtils;
 
 import java.util.List;
 
@@ -34,6 +36,7 @@ public class AddToListAdapter extends RecyclerView.Adapter<AddToListAdapter.View
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View contactView = inflater.inflate(R.layout.add_to_list_popup_item, parent, false);
+        UIUtils.setupOnTouchListener(contactView);
         return new ViewHolder(contactView);
     }
 

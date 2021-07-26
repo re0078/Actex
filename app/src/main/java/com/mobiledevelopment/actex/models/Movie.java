@@ -1,9 +1,6 @@
 
 package com.mobiledevelopment.actex.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.mobiledevelopment.actex.models.movie_details.*;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RatingBar;
@@ -32,12 +34,15 @@ import com.mobiledevelopment.actex.models.movie_details.cast.CastsList;
 import com.mobiledevelopment.actex.models.movie_details.review.Review;
 import com.mobiledevelopment.actex.models.movie_details.review.Reviews;
 import com.mobiledevelopment.actex.models.request_bodies.AddToListBody;
+import com.mobiledevelopment.actex.models.request_bodies.CreateListBody;
 import com.mobiledevelopment.actex.models.request_bodies.FavouriteMovie;
 import com.mobiledevelopment.actex.models.request_bodies.Rate;
 import com.mobiledevelopment.actex.models.request_bodies.WatchlistMovie;
+import com.mobiledevelopment.actex.utils.UIUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -110,9 +115,9 @@ public class MovieFragment extends Fragment {
         imageView.setVisibility(View.VISIBLE);
         view.findViewById(R.id.shimmer_movie_img).setVisibility(View.INVISIBLE);
 
-        List<TextView> genreViews = List.of((TextView) view.findViewById(R.id.movie_genre1),
-                (TextView) view.findViewById(R.id.movie_genre2),
-                (TextView) view.findViewById(R.id.movie_genre3));
+        List<TextView> genreViews = List.of(view.findViewById(R.id.movie_genre1),
+                view.findViewById(R.id.movie_genre2),
+                view.findViewById(R.id.movie_genre3));
 
         if (movie.getGenres() != null)
             for (int i = 0; i < 3; i += 1) {
@@ -139,10 +144,47 @@ public class MovieFragment extends Fragment {
         ImageView addToList = outerView.findViewById(R.id.add_to_list);
         // TODO
         addToList.setOnClickListener(v -> {
-            PopupWindow pw = new PopupWindow(view, 600, 600, true);
+            PopupWindow pw = new PopupWindow(view, 800, 1280, true);
             pw.showAtLocation(view, Gravity.CENTER, 0, 0);
         });
         getLists();
+
+        ImageView new_list_btn = view.findViewById(R.id.create_list_button);
+        UIUtils.setupOnTouchListener(new_list_btn);
+        new_list_btn.setOnClickListener(btn -> {
+            EditText editText = view.findViewById(R.id.create_list_edit_text);
+            String[] text_split = editText.getText().toString().split("\n");
+            String list_name = text_split[0];
+            String list_desc = String.join("\n" , Arrays.asList(text_split).subList(1, text_split.length));
+            editText.setText("");
+            createNewList(list_name, list_desc);
+            getLists();
+        });
+
+    }
+
+    private void createNewList(String name, String desc) {
+        Log.e("ses", User.getInstance().getSessionToken().getSessionId());
+        Call<Object> create = RetrofitBuilder.getCreateListApi().createList(getResources().getString(R.string.api_key), User.getUser().getSessionToken().getSessionId(), new CreateListBody(name, desc, "en"));
+        create.enqueue(new Callback<Object>() {
+            @Override
+            @EverythingIsNonNull
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.e("create", response.code() + " " + response.message() + " " + response.errorBody());
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "list created", Toast.LENGTH_SHORT).show();
+                    getLists();
+                } else {
+                    Toast.makeText(getContext(), "try again! internet not connected", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            @EverythingIsNonNull
+            public void onFailure(Call<Object> call, Throwable t) {
+                Toast.makeText(getContext(), "try again! internet not connected", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void getLists() {
@@ -197,7 +239,7 @@ public class MovieFragment extends Fragment {
             @EverythingIsNonNull
             public void onFailure(Call<Object> call, Throwable t) {
                 Log.e("list error", t.getMessage());
-                Toast.makeText(getContext(), "could not fetch your list. try again later", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "could not fetch your list. try again later", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -235,9 +277,9 @@ public class MovieFragment extends Fragment {
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     if (!response.isSuccessful()) {
                         Log.e("failed rating", response.message() + response.code() + response.body());
-                        Toast.makeText(getContext(), "failed! try again later", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "failed! try again later", Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(getContext(), "added to favourites!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "added to favourites!", Toast.LENGTH_SHORT).show();
                     fav_img_empty.setVisibility(View.INVISIBLE);
                     fav_img_full.setVisibility(View.VISIBLE);
                 }
@@ -246,14 +288,36 @@ public class MovieFragment extends Fragment {
                 @EverythingIsNonNull
                 public void onFailure(Call<Object> call, Throwable t) {
                     Log.e("failed rating", Objects.requireNonNull(t.getMessage()));
-                    Toast.makeText(getContext(), "failed! try again later", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "failed! try again later", Toast.LENGTH_SHORT).show();
                 }
             });
         });
 
         // TODO remove from fav
         fav_img_full.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Was not removed from favourite! (DEBUG)", Toast.LENGTH_LONG).show();
+            AccountApiEndpointInterface api = RetrofitBuilder.getAccountApi();
+            Call<Object> addToFav = api.addToFav(User.getUser().getAccount().getId(), res.getString(R.string.api_key), User.getUser().getSessionToken().getSessionId(), new FavouriteMovie("movie", movie.getId(), false));
+            addToFav.enqueue(new Callback<Object>() {
+                @Override
+                @EverythingIsNonNull
+                public void onResponse(Call<Object> call, Response<Object> response) {
+                    if (!response.isSuccessful()) {
+                        Log.e("failed rating", response.message() + response.code() + response.body());
+                        Toast.makeText(getContext(), "failed! try again later", Toast.LENGTH_SHORT).show();
+                    }
+                    Toast.makeText(getContext(), "added to favourites!", Toast.LENGTH_SHORT).show();
+                    fav_img_empty.setVisibility(View.INVISIBLE);
+                    fav_img_full.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                @EverythingIsNonNull
+                public void onFailure(Call<Object> call, Throwable t) {
+                    Log.e("failed rating", Objects.requireNonNull(t.getMessage()));
+                    Toast.makeText(getContext(), "failed! try again later", Toast.LENGTH_SHORT).show();
+                }
+            });
+            Toast.makeText(getContext(), "removed from favourites!", Toast.LENGTH_SHORT).show();
             fav_img_empty.setVisibility(View.VISIBLE);
             fav_img_full.setVisibility(View.INVISIBLE);
         });
@@ -269,16 +333,16 @@ public class MovieFragment extends Fragment {
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     if (!response.isSuccessful()) {
                         Log.e("failed rating", response.message() + response.code() + response.body());
-                        Toast.makeText(getContext(), "rating failed! try again later", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "rating failed! try again later", Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(getContext(), "rated", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "rated", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 @EverythingIsNonNull
                 public void onFailure(Call<Object> call, Throwable t) {
                     Log.e("failed rating", Objects.requireNonNull(t.getMessage()));
-                    Toast.makeText(getContext(), "rating failed! try again later", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "rating failed! try again later", Toast.LENGTH_SHORT).show();
                 }
             });
 

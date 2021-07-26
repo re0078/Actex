@@ -7,11 +7,14 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mobiledevelopment.actex.util.ApiUtil;
+import com.mobiledevelopment.actex.utils.UIUtils;
 import com.mobiledevelopment.actex.views.MovieDetailActivity;
 
 import java.util.Objects;
@@ -30,8 +33,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Button loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(view -> loginProcess());
+        UIUtils.setupOnTouchListener(loginButton);
         Button signUpButton = findViewById(R.id.sign_up_button);
         signUpButton.setOnClickListener(view -> signUpProcess());
+        UIUtils.setupOnTouchListener(signUpButton);
     }
 
     private void loginProcess() {
