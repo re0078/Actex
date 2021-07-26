@@ -1,6 +1,7 @@
 package com.mobiledevelopment.actex.views;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,20 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder> {
     private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342";
+    private static final PlaylistAdapter PLAYLIST_ADAPTER = new PlaylistAdapter();
     private List<Playlist> playlists;
+
+    public static PlaylistAdapter getInstance() {
+        return PLAYLIST_ADAPTER;
+    }
 
     @NonNull
     @Override
@@ -37,12 +46,13 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
 
     @Override
     public int getItemCount() {
-        return 0;
+        return playlists.size();
     }
 
     @Override
     public void onBindViewHolder(@NonNull PlaylistViewHolder holder, int position) {
         Playlist playlist = playlists.get(position);
+        holder.name.setText(playlist.getName());
         Picasso.get()
                 .load(IMAGE_BASE_URL + playlist.getPosterPath())
                 .placeholder(R.drawable.loading)

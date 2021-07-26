@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/playlist_preview"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="@dimen/playlist_holder_height"
+        android:layout_height="@dimen/playlist_holder_height"
         android:contentDescription="@string/playlist_preview_desc"
         app:layout_constraintBottom_toBottomOf="@id/playlist_layout"
         app:layout_constraintStart_toStartOf="@id/playlist_layout"
