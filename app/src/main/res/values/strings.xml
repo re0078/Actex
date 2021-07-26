@@ -23,7 +23,7 @@
     <string name="playlist_preview_desc">Playlist preview</string>
     <string name="playlist_name_hint">Your playlist name</string>
     <string name="play_button_desc">play_button_desc</string>
-
+    <string name="img_base_url">https://image.tmdb.org/t/p/w342</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_detail">DetailActivity</string>
@@ -129,4 +129,6 @@
     <string name="favorite_list_title">FAVORITE</string>
     <string name="watch_list_title">WATCHLIST</string>
     <string name="custom_list_title">CUSTOM</string>
+    <string name="imdb_rating_prompt">#/10</string>
+    <string name="movie_name_prompt">Loading ..</string>
 </resources>

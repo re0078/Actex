@@ -1,17 +1,23 @@
 package com.mobiledevelopment.actex.views;
 
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobiledevelopment.actex.R;
 import com.mobiledevelopment.actex.clients.AccountApiEndpointInterface;
@@ -19,16 +25,19 @@ import com.mobiledevelopment.actex.clients.MovieDetailsApi;
 import com.mobiledevelopment.actex.clients.RetrofitBuilder;
 import com.mobiledevelopment.actex.models.Movie;
 import com.mobiledevelopment.actex.models.User;
+import com.mobiledevelopment.actex.models.lists.ListResult;
 import com.mobiledevelopment.actex.models.movie_details.ProductionCountry;
 import com.mobiledevelopment.actex.models.movie_details.cast.Cast;
 import com.mobiledevelopment.actex.models.movie_details.cast.CastsList;
 import com.mobiledevelopment.actex.models.movie_details.review.Review;
 import com.mobiledevelopment.actex.models.movie_details.review.Reviews;
+import com.mobiledevelopment.actex.models.request_bodies.AddToListBody;
 import com.mobiledevelopment.actex.models.request_bodies.FavouriteMovie;
 import com.mobiledevelopment.actex.models.request_bodies.Rate;
 import com.mobiledevelopment.actex.models.request_bodies.WatchlistMovie;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,11 +49,10 @@ import retrofit2.internal.EverythingIsNonNull;
 public class MovieFragment extends Fragment {
 
     private Movie movie;
-    public Resources res;
-    private final String imageBaseUrl = "https://image.tmdb.org/t/p/w342";
-    private ImageView fav_empty;
-    private ImageView fav_full;
-
+    private Resources res;
+    private TextView casts;
+    private TextView reviews;
+    private AddToListAdapter addToListAdapter;
 
     public static MovieFragment newInstance(Movie movie) {
         MovieFragment fragment = new MovieFragment();
@@ -54,18 +62,15 @@ public class MovieFragment extends Fragment {
         return fragment;
     }
 
-    TextView casts;
-    TextView reviews;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        if (getArguments() != null)
             movie = (Movie) getArguments().getSerializable("movie");
-        }
     }
 
     @Override
+    @RequiresApi(api = Build.VERSION_CODES.R)
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -75,21 +80,17 @@ public class MovieFragment extends Fragment {
         TextView name = view.findViewById(R.id.movie_name);
         name.setText(movie.getTitle());
 
-        RatingBar ratingBar = view.findViewById(R.id.item_rating_bar);
+        RatingBar ratingBar = view.findViewById(R.id.imdb_rating_bar);
         setupRatingBar(ratingBar);
 
         TextView summary = view.findViewById(R.id.movie_summary);
         summary.setText(movie.getOverview());
 
-
-//        TextView pop = view.findViewById(R.id.popularityText);
-//        pop.setText(movie.getPopularity().intValue() + "");
-
         TextView brief_attrs = view.findViewById(R.id.country_year_length_text_view);
         String country = "-";
         if (movie.getProductionCountries() != null)
             country = ((ProductionCountry) movie.getProductionCountries().get(0)).getName();
-        String year = movie.getReleaseDate();
+        String year = movie.getReleaseDate().split("-")[0];
         String length = "- min";
         if (movie.getRuntime() != null)
             length = movie.getRuntime().toString() + " min";
@@ -98,22 +99,76 @@ public class MovieFragment extends Fragment {
         TextView ratings = view.findViewById(R.id.rating_value);
         ratings.setText(String.format("%s/10", movie.getVoteAverage()));
 
-        fav_empty = view.findViewById(R.id.fav_empty);
-        fav_full = view.findViewById(R.id.fav_full);
+        ImageView fav_empty = view.findViewById(R.id.fav_empty);
+        ImageView fav_full = view.findViewById(R.id.fav_full);
         setupFavButtons(fav_empty, fav_full);
 
-        ImageView addToList = view.findViewById(R.id.add_to_list);
-        setUpCustomListBtn(addToList);
+        setupAddToList(view, inflater, container);
 
         ImageView imageView = view.findViewById(R.id.movie_img);
-        Picasso.get().load(imageBaseUrl + movie.getPosterPath()).into(imageView);
+        Picasso.get().load(res.getString(R.string.img_base_url) + movie.getPosterPath()).into(imageView);
+        imageView.setVisibility(View.VISIBLE);
+        view.findViewById(R.id.shimmer_movie_img).setVisibility(View.INVISIBLE);
 
-//        casts = view.findViewById(R.id.actors);
-//        reviews = view.findViewById(R.id.reviewText);
-//        setMovieCastsAndReviews();
-//        Log.e("hello", "s");
+        List<TextView> genreViews = List.of((TextView) view.findViewById(R.id.movie_genre1),
+                (TextView) view.findViewById(R.id.movie_genre2),
+                (TextView) view.findViewById(R.id.movie_genre3));
+
+        if (movie.getGenres() != null)
+            for (int i = 0; i < 3; i += 1) {
+                TextView genreTextView = genreViews.get(i);
+                genreTextView.setText(movie.getGenres().get(i).getName());
+            }
+
+        // TODO set fav icon based on favourite list
 
         return view;
+    }
+
+    private void setupAddToList(View outerView, LayoutInflater inflater, ViewGroup container) {
+        View view = inflater.inflate(R.layout.add_to_list_popup, null, false);
+        RecyclerView popupListRecyclerView = view.findViewById(R.id.popup_add_to_list);
+        addToListAdapter = new AddToListAdapter(new ArrayList<>());
+        addToListAdapter.setOnListItemClickedListener(listResult -> {
+            addToList(listResult, movie.getId());
+        });
+        popupListRecyclerView.setAdapter(addToListAdapter);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        popupListRecyclerView.setLayoutManager(mLayoutManager);
+
+        ImageView addToList = outerView.findViewById(R.id.add_to_list);
+        // TODO
+        addToList.setOnClickListener(v -> {
+            PopupWindow pw = new PopupWindow(view, 600, 600, true);
+            pw.showAtLocation(view, Gravity.CENTER, 0, 0);
+        });
+        getLists();
+    }
+
+    public void getLists() {
+        Call<com.mobiledevelopment.actex.models.lists.List> myList = RetrofitBuilder.getCreateListApi()
+                .getLists(User.getUser().getAccount().getId(), getResources().getString(R.string.api_key), User.getUser().getSessionToken().getSessionId(), 1);
+        myList.enqueue(new Callback<com.mobiledevelopment.actex.models.lists.List>() {
+            @Override
+            @EverythingIsNonNull
+            public void onResponse(Call<com.mobiledevelopment.actex.models.lists.List> call, Response<com.mobiledevelopment.actex.models.lists.List> response) {
+                Log.e("list error", response.code() + "");
+                if (response.isSuccessful()) {
+                    Log.e("list comp", response.code() + "");
+                    assert response.body() != null;
+                    addToListAdapter.addAll(response.body());
+                } else {
+                    Log.e("list error", response.code() + "");
+                }
+            }
+
+            @Override
+            @EverythingIsNonNull
+            public void onFailure(Call<com.mobiledevelopment.actex.models.lists.List> call, Throwable t) {
+                Log.e("list error", t.getMessage());
+                Toast.makeText(getContext(), "could not fetch your list. try again later", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setUpCustomListBtn(ImageView customListImgBtn) {
@@ -125,7 +180,28 @@ public class MovieFragment extends Fragment {
         addToListDialogFragment.show(getChildFragmentManager(), "fragment_edit_name");
     }
 
-    //todo: clean this section
+    private void addToList(final ListResult listResult, int movieId) {
+        Call<Object> addToList = RetrofitBuilder.getCreateListApi().addMovieToList(listResult.getId().toString(), User.getApiKey(), User.getUser().getSessionToken().getSessionId(), new AddToListBody(movieId));
+        addToList.enqueue(new Callback<Object>() {
+            @Override
+            @EverythingIsNonNull
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "movie added to list" + listResult.getName(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.e("list error", response.code() + "");
+                }
+            }
+
+            @Override
+            @EverythingIsNonNull
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.e("list error", t.getMessage());
+                Toast.makeText(getContext(), "could not fetch your list. try again later", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     private void setupWatchListBtn(final ImageView watchListImgBtn) {
         watchListImgBtn.setOnClickListener(v -> {
             AccountApiEndpointInterface api = RetrofitBuilder.getAccountApi();
@@ -176,6 +252,11 @@ public class MovieFragment extends Fragment {
         });
 
         // TODO remove from fav
+        fav_img_full.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Was not removed from favourite! (DEBUG)", Toast.LENGTH_LONG).show();
+            fav_img_empty.setVisibility(View.VISIBLE);
+            fav_img_full.setVisibility(View.INVISIBLE);
+        });
     }
 
     private void setupRatingBar(RatingBar ratingBar) {
@@ -261,5 +342,6 @@ public class MovieFragment extends Fragment {
         }
         this.reviews.setText(builder.toString());
     }
+
 
 }
