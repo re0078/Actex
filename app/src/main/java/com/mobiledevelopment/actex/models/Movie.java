@@ -1,6 +1,9 @@
 
 package com.mobiledevelopment.actex.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.mobiledevelopment.actex.models.movie_details.*;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -15,7 +18,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Movie implements Serializable {
+public class Movie implements Serializable{
 
     public Movie(String originalTitle) {
         this.originalTitle = originalTitle;
@@ -96,5 +99,4 @@ public class Movie implements Serializable {
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
-
 }
