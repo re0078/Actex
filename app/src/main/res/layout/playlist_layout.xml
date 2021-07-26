@@ -37,6 +37,7 @@
         android:textAlignment="center"
         android:textColor="#FFC107"
         android:textColorHint="#80FFC107"
+        android:focusableInTouchMode="true"
         app:layout_constraintEnd_toEndOf="@id/playlist_layout"
         app:layout_constraintStart_toEndOf="@id/playlist_preview"
         app:layout_constraintTop_toTopOf="@id/playlist_layout" />

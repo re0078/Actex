@@ -1,7 +1,7 @@
 package com.mobiledevelopment.actex.views;
 
 import android.content.Context;
-import android.view.Gravity;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobiledevelopment.actex.R;
-import com.mobiledevelopment.actex.models.lists.MovieList;
-import com.mobiledevelopment.actex.models.lists.Playlist;
+import com.mobiledevelopment.actex.models.Playlist;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
@@ -53,6 +52,10 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
     public void onBindViewHolder(@NonNull PlaylistViewHolder holder, int position) {
         Playlist playlist = playlists.get(position);
         holder.name.setText(playlist.getName());
+        if (playlist.isFixedName()) {
+            holder.name.setInputType(InputType.TYPE_NULL);
+            holder.name.setEnabled(false);
+        }
         Picasso.get()
                 .load(IMAGE_BASE_URL + playlist.getPosterPath())
                 .placeholder(R.drawable.loading)
@@ -60,6 +63,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
                 .into(holder.preview);
     }
 
+    @Setter
     public static class PlaylistViewHolder extends RecyclerView.ViewHolder {
         private EditText name;
         private ImageView preview;

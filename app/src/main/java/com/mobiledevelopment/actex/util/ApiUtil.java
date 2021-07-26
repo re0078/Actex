@@ -9,9 +9,11 @@ import com.mobiledevelopment.actex.clients.AccountApiEndpointInterface;
 import com.mobiledevelopment.actex.clients.AuthApiEndpointInterface;
 import com.mobiledevelopment.actex.clients.ListsApiEndpointInterface;
 import com.mobiledevelopment.actex.clients.RetrofitBuilder;
+import com.mobiledevelopment.actex.models.Movie;
 import com.mobiledevelopment.actex.models.User;
 import com.mobiledevelopment.actex.models.account.Account;
-import com.mobiledevelopment.actex.models.lists.PlaylistsResult;
+import com.mobiledevelopment.actex.models.lists.ListResponse;
+import com.mobiledevelopment.actex.models.Playlist;
 import com.mobiledevelopment.actex.models.network.Session;
 import com.mobiledevelopment.actex.models.network.Token;
 
@@ -175,13 +177,13 @@ public class ApiUtil {
 
     }
 
-    public void getPlaylists(String apiKey, CompletableFuture<PlaylistsResult> future) {
+    public void getPlaylists(String apiKey, CompletableFuture<ListResponse<Playlist>> future) {
         ListsApiEndpointInterface listsApi = getListApi();
-        Call<PlaylistsResult> getListsCall = listsApi.getPlaylists(user.getAccount().getId(), apiKey,
+        Call<ListResponse<Playlist>> getListsCall = listsApi.getPlaylists(user.getAccount().getId(), apiKey,
                 user.getSessionToken().getSessionId());
-        getListsCall.enqueue(new Callback<PlaylistsResult>() {
+        getListsCall.enqueue(new Callback<ListResponse<Playlist>>() {
             @Override
-            public void onResponse(Call<PlaylistsResult> call, Response<PlaylistsResult> response) {
+            public void onResponse(Call<ListResponse<Playlist>> call, Response<ListResponse<Playlist>> response) {
                 if (response.isSuccessful()) {
                     Log.i(TAG, "Received lists");
                     future.complete(response.body());
@@ -191,7 +193,51 @@ public class ApiUtil {
             }
 
             @Override
-            public void onFailure(Call<PlaylistsResult> call, Throwable t) {
+            public void onFailure(Call<ListResponse<Playlist>> call, Throwable t) {
+                future.complete(null);
+            }
+        });
+    }
+
+    public void getFavoriteMovies(String apiKey, CompletableFuture<ListResponse<Movie>> future) {
+        ListsApiEndpointInterface listsApi = getListApi();
+        Call<ListResponse<Movie>> getListsCall = listsApi.getFavoriteMovies(user.getAccount().getId(), apiKey,
+                user.getSessionToken().getSessionId());
+        getListsCall.enqueue(new Callback<ListResponse<Movie>>() {
+            @Override
+            public void onResponse(Call<ListResponse<Movie>> call, Response<ListResponse<Movie>> response) {
+                if (response.isSuccessful()) {
+                    Log.i(TAG, "Received lists");
+                    future.complete(response.body());
+                } else {
+                    future.complete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ListResponse<Movie>> call, Throwable t) {
+                future.complete(null);
+            }
+        });
+    }
+
+    public void getWatchlistMovies(String apiKey, CompletableFuture<ListResponse<Movie>> future) {
+        ListsApiEndpointInterface listsApi = getListApi();
+        Call<ListResponse<Movie>> getListsCall = listsApi.getFavoriteMovies(user.getAccount().getId(), apiKey,
+                user.getSessionToken().getSessionId());
+        getListsCall.enqueue(new Callback<ListResponse<Movie>>() {
+            @Override
+            public void onResponse(Call<ListResponse<Movie>> call, Response<ListResponse<Movie>> response) {
+                if (response.isSuccessful()) {
+                    Log.i(TAG, "Received lists");
+                    future.complete(response.body());
+                } else {
+                    future.complete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ListResponse<Movie>> call, Throwable t) {
                 future.complete(null);
             }
         });

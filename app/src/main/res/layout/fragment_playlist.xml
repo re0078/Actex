@@ -6,45 +6,8 @@
     android:orientation="vertical"
     tools:context=".views.PlaylistFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_margin="@dimen/fab_margin"
-        android:text="@string/favorite_list_title" />
-
     <FrameLayout
-        android:id="@+id/favorite_playlist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/white"
-        android:minHeight="@dimen/playlist_holder_height" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_margin="@dimen/fab_margin"
-        android:text="@string/watch_list_title" />
-
-    <FrameLayout
-        android:id="@+id/watchlist_playlist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/white"
-        android:minHeight="@dimen/playlist_holder_height" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_margin="@dimen/fab_margin"
-        android:text="@string/custom_list_title" />
-
-    <FrameLayout
-        android:id="@+id/custom_playlist"
+        android:id="@+id/playlists"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_margin="@dimen/fab_margin"

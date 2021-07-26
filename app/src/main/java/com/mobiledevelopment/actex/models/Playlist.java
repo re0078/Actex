@@ -1,4 +1,4 @@
-package com.mobiledevelopment.actex.models.lists;
+package com.mobiledevelopment.actex.models;
 
 import com.google.gson.annotations.SerializedName;
 import com.mobiledevelopment.actex.models.Movie;
@@ -6,10 +6,14 @@ import com.mobiledevelopment.actex.models.Movie;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 public class Playlist {
+    private boolean fixedName;
     private String description;
     @SerializedName("favourite_count")
     private int favouriteCount;

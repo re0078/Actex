@@ -7,12 +7,11 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class PlaylistsResult {
+public class ListResponse <T> {
     private int page;
-    private List<Playlist> results;
+    private List<T> results;
     @SerializedName("total_pages")
     private int totalPages;
     @SerializedName("total_results")
     private int totalResults;
-
 }
