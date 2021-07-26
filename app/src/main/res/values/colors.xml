@@ -19,4 +19,7 @@
     <color name="transparent">#00000000</color>
     <color name="blacktransparent">#9E000000</color>
     <color name="gray">#757474</color>
+    <color name="yellowTitle">#f5c611</color>
+    <color name="ratingColor">#109D3D</color>
+    <color name="backgroundDark">#1d1d27</color>
 </resources>

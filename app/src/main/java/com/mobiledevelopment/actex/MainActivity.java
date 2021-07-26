@@ -1,39 +1,27 @@
 package com.mobiledevelopment.actex;
 
-import static com.mobiledevelopment.actex.clients.RetrofitBuilder.getAuthApi;
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
-import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.mobiledevelopment.actex.clients.AuthApiEndpointInterface;
-import com.mobiledevelopment.actex.databinding.ActivityMainBinding;
-import com.mobiledevelopment.actex.models.User;
-import com.mobiledevelopment.actex.models.network.Session;
-import com.mobiledevelopment.actex.models.network.Token;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.mobiledevelopment.actex.clients.AuthApiEndpointInterface;
+import com.mobiledevelopment.actex.models.User;
+import com.mobiledevelopment.actex.models.network.Session;
+import com.mobiledevelopment.actex.models.network.Token;
+import com.mobiledevelopment.actex.views.MovieDetailActivity;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.mobiledevelopment.actex.clients.RetrofitBuilder.getAuthApi;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,9 +69,10 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     User.getInstance().setRequestToken(response.body());
                     validateRequestToken(myAuthApi, apiKey);
-                    //TODO handle showing movies list
                     Toast.makeText(getApplicationContext(), "Logged in successfully",
                             Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
+                    MainActivity.this.startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "failed to connect!"
                             + response.code(), Toast.LENGTH_SHORT).show();

@@ -67,5 +67,10 @@
         app:borderWidth="0dp"
         app:useCompatPadding="true"
         app:srcCompat="@drawable/ic_play_arrow_black_24dp" />
+    <FrameLayout
+        android:id="@+id/fl_main_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
