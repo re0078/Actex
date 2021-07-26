@@ -76,7 +76,9 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
         TextView textView = holder.nameTextView;
         textView.setText(movie.getTitle());
         final ImageView imageView = holder.movieImage;
-        Picasso.get().load(imageBaseUrl+movie.getPosterPath()).placeholder(R.drawable.loading_placeholder).error(R.drawable.ic_baseline_image_24).into(imageView);
+        Picasso.get().load(imageBaseUrl+movie.getPosterPath())
+                .placeholder(R.drawable.loading)
+                .error(R.drawable.ic_baseline_image_24).into(imageView);
 
     }
 

@@ -27,6 +27,5 @@ public class MovieDetailActivity extends AppCompatActivity {
                 .replace(R.id.fl_main_fragment, TrendListsFragment.newInstance(onMovieClickListener))
                 .addToBackStack(null)
                 .commit();
-        Log.i(TAG, "Activity created");
     }
 }

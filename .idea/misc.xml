@@ -6,13 +6,20 @@
         <entry key="app/src/main/res/drawable/fragment_playlist.xml" value="0.278125" />
         <entry key="app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.278125" />
         <entry key="app/src/main/res/drawable/ic_baseline_play_arrow_24.xml" value="0.278125" />
+        <entry key="app/src/main/res/drawable/ic_baseline_power_settings_new_24.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/drawable/login_button.xml" value="0.20104166666666667" />
+        <entry key="app/src/main/res/drawable/login_button_background.xml" value="0.24895833333333334" />
+        <entry key="app/src/main/res/drawable/login_input_background.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/drawable/play_button.xml" value="0.278125" />
         <entry key="app/src/main/res/drawable/play_button_background.xml" value="0.278125" />
         <entry key="app/src/main/res/drawable/playlist_name_background.xml" value="0.278125" />
+        <entry key="app/src/main/res/drawable/playlist_section_background.xml" value="0.24895833333333334" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.11322188449848024" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.11322188449848024" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.16" />
+        <entry key="app/src/main/res/layout/fragment_lists.xml" value="0.2328125" />
         <entry key="app/src/main/res/layout/fragment_playlist.xml" value="0.23369565217391305" />
         <entry key="app/src/main/res/layout/playlist_layout.xml" value="0.25" />
       </map>

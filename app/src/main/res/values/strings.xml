@@ -17,7 +17,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
-    <string name="no_account_msg">Don\'t have an account? Sign up now!</string>
+    <string name="no_account_msg">Don\'t have an account? \n Sign up now!</string>
     <string name="sign_up">Sign Up</string>
     <string name="default_playlist_name">Untitled playlist</string>
     <string name="playlist_preview_desc">Playlist preview</string>
@@ -121,4 +121,8 @@
     <string name="movie_poster">movie poster</string>
     <string name="movie_header">movie header</string>
     <string name="play_trailer">play trailer</string>
+    <string name="logout_desc">Logout</string>
+    <string name="playlists_desc">Playlists</string>
+    <string name="actex_logo_desc">actex_logo</string>
+    <string name="side_logo_desc">Side logo</string>
 </resources>
