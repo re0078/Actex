@@ -2,6 +2,7 @@ package com.mobiledevelopment.actex.views;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
         public ImageView movieImage;
+
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
@@ -76,8 +78,10 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
         TextView textView = holder.nameTextView;
         textView.setText(movie.getTitle());
         final ImageView imageView = holder.movieImage;
-        Picasso.get().load(imageBaseUrl+movie.getPosterPath())
+        Picasso.get().load(imageBaseUrl + movie.getPosterPath())
                 .placeholder(R.drawable.loading)
+                .fit()
+                .centerInside()
                 .error(R.drawable.ic_baseline_image_24).into(imageView);
 
     }
@@ -86,6 +90,7 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
     public int getItemCount() {
         return mMovies.size();
     }
+
     public void addAll(List<Movie> results) {
         mMovies.addAll(results);
         this.notifyDataSetChanged();

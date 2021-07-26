@@ -125,4 +125,8 @@
     <string name="playlists_desc">Playlists</string>
     <string name="actex_logo_desc">actex_logo</string>
     <string name="side_logo_desc">Side logo</string>
+    <string name="sign_up_url">https://www.themoviedb.org/signup</string>
+    <string name="favorite_list_title">FAVORITE</string>
+    <string name="watch_list_title">WATCHLIST</string>
+    <string name="custom_list_title">CUSTOM</string>
 </resources>
