@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/activity_horizontal_margin"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:id="@+id/hor_movie_image"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/movie_name"
+        android:scaleType="fitXY"
+        android:src="@drawable/movie_image_drawable"
+        />
+
+    <TextView
+        android:id="@+id/hor_movie_name_text"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:text="@string/movie_name"
+        android:textSize="20sp"
+        android:textColor="#7BC6C4"
+        android:textAlignment="center"
+        android:gravity="center"
+        />
+</LinearLayout>
