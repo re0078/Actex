@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,7 +51,7 @@ public class PlaylistDetailedFragment extends Fragment {
         assert activity != null;
         apiUtil = ApiUtil.getInstance();
         if (adapter == null) {
-            adapter = new ListMoviesAdapter(new ArrayList<>());
+            adapter = new ListMoviesAdapter(new ArrayList<>(), activity);
         }
     }
 
@@ -74,23 +75,4 @@ public class PlaylistDetailedFragment extends Fragment {
         adapter.notifyDataSetChanged();
         return playlistDetailedFragment;
     }
-
-//    private void fetchPlaylistMovies(int listId) {
-//        CompletableFuture<PlaylistResponse> moviesFuture = new CompletableFuture<>();
-//        activity.runOnUiThread(() -> apiUtil.fetchPlaylistMovies(listId, getString(R.string.api_key),
-//                moviesFuture));
-//        moviesFuture.whenComplete((movies, t) -> {
-//            if (Objects.nonNull(movies)) {
-//                List<Movie> fetchedMovies = movies.getItems();
-//                if (fetchedMovies.isEmpty()) {
-//                    Toast.makeText(getContext(), "Couldn't fetch playlist movies", Toast.LENGTH_LONG).show();
-//                } else {
-//                    adapter.setMovieList(fetchedMovies);
-//                    adapter.notifyDataSetChanged();
-//                }
-//            } else {
-//                Toast.makeText(getContext(), "Unable to contact the server", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
 }

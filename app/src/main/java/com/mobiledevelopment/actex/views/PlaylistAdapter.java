@@ -19,6 +19,7 @@ import com.mobiledevelopment.actex.R;
 import com.mobiledevelopment.actex.models.Movie;
 import com.mobiledevelopment.actex.models.Playlist;
 import com.mobiledevelopment.actex.util.ApiUtil;
+import com.mobiledevelopment.actex.util.ListApiUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -34,10 +35,13 @@ import lombok.Setter;
 @Data
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder> {
     private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342";
-    private static final PlaylistAdapter PLAYLIST_ADAPTER = new PlaylistAdapter(ApiUtil.getInstance());
+    private static final PlaylistAdapter PLAYLIST_ADAPTER =
+            new PlaylistAdapter(ApiUtil.getInstance(), ListApiUtil.getInstance());
     private List<Playlist> playlists;
     @NonNull
     private ApiUtil apiUtil;
+    @NonNull
+    private ListApiUtil listApiUtil;
     private FragmentActivity activity;
     private Gson gson;
 
@@ -121,7 +125,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
 
     private void deletePlaylist(String listId, String apiKey, int position) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
-        activity.runOnUiThread(() -> apiUtil.deletePlaylist(listId, apiKey, future));
+        activity.runOnUiThread(() -> listApiUtil.deletePlaylist(listId, apiKey, future));
         future.whenComplete((result, t) -> {
             if (Objects.nonNull(result)) {
                 if (result) {

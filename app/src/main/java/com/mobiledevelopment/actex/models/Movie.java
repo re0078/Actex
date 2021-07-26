@@ -18,7 +18,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Movie implements Serializable{
+public class Movie implements Serializable {
 
     public Movie(String originalTitle) {
         this.originalTitle = originalTitle;
@@ -99,4 +99,6 @@ public class Movie implements Serializable{
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
+    private Integer listId;
+    private ListType listType;
 }
