@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class TrendListsFragment extends Fragment {
     private ApiUtil apiUtil;
-    private RecyclerView recent;
+    private RecyclerView upcoming;
     private RecyclerView mostPopular;
     private RecyclerView topRated;
     private FragmentActivity activity;
@@ -63,7 +63,7 @@ public class TrendListsFragment extends Fragment {
         ImageButton logout = listFragment.findViewById(R.id.logout_button);
         logout.setOnClickListener(view -> logoutProcess());
         playlists.setOnClickListener(view -> setupPlaylists());
-        recent = listFragment.findViewById(R.id.recently_played_recycler);
+        upcoming = listFragment.findViewById(R.id.upcoming_recycler);
         mostPopular = listFragment.findViewById(R.id.most_popular_recycler);
         topRated = listFragment.findViewById(R.id.top_rated_recycler);
         ArrayList<RecyclerView> recyclerViews = setAdapters();
@@ -91,9 +91,9 @@ public class TrendListsFragment extends Fragment {
 
     private ArrayList<RecyclerView> setAdapters() {
         ArrayList<RecyclerView> res = new ArrayList<>();
-        res.add(recent);
-        res.add(mostPopular);
+        res.add(upcoming);
         res.add(topRated);
+        res.add(mostPopular);
         return res;
     }
 
