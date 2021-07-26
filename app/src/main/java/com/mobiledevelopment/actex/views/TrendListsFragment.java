@@ -92,8 +92,8 @@ public class TrendListsFragment extends Fragment {
     private ArrayList<RecyclerView> setAdapters() {
         ArrayList<RecyclerView> res = new ArrayList<>();
         res.add(recent);
-        res.add(mostPopular);
         res.add(topRated);
+        res.add(mostPopular);
         return res;
     }
 
