@@ -70,6 +70,7 @@ public class TrendListsFragment extends Fragment {
             if (!editText.getText().equals("")){
                 Intent intent = new Intent(this.getActivity(), SearchableActivity.class);
                 intent.putExtra("searchQuery", editText.getText().toString());
+                editText.setText("");
                 startActivity(intent);
             }
         });
