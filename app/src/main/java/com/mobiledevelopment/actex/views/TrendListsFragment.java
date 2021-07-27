@@ -21,7 +21,7 @@ import com.mobiledevelopment.actex.MainActivity;
 import com.mobiledevelopment.actex.R;
 import com.mobiledevelopment.actex.clients.MovieListBuilder;
 import com.mobiledevelopment.actex.models.TrendListType;
-import com.mobiledevelopment.actex.util.ApiUtil;
+import com.mobiledevelopment.actex.utils.ApiUtil;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -67,7 +67,7 @@ public class TrendListsFragment extends Fragment {
         logout.setOnClickListener(view -> logoutProcess());
         playlists.setOnClickListener(view -> setupPlaylists());
         search.setOnClickListener(view -> {
-            if (!editText.getText().equals("")){
+            if (!editText.getText().toString().equals("")) {
                 Intent intent = new Intent(this.getActivity(), SearchableActivity.class);
                 intent.putExtra("searchQuery", editText.getText().toString());
                 editText.setText("");

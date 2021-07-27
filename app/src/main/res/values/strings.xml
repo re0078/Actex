@@ -142,5 +142,6 @@
     <string name="movie_casts">CASTS</string>
     <string name="movie_reviews">REVIEWS</string>
     <string name="casts_unavailable">Casts Unavailable!</string>
-    <string name="no_review_available">No Review Available!</string>
+    <string name="reviews_unavailable">No Review Available!</string>
+    <string name="no_search_result">No result was found for your query!!</string>
 </resources>

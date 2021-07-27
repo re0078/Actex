@@ -22,5 +22,4 @@ public interface MovieDetailsApi {
     @Headers("Content-Type: application/json;charset=utf-8")
     @POST("movie/{movie_id}/rating")
     Call<Object> rateMovie(@Path("movie_id") int movieId, @Query("api_key") String apiKey, @Query("session_id") String sessionId, @Body Rate rate);
-
 }

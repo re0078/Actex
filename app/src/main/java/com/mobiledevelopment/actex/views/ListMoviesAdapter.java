@@ -1,6 +1,5 @@
 package com.mobiledevelopment.actex.views;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +15,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobiledevelopment.actex.R;
-import com.mobiledevelopment.actex.models.ListType;
 import com.mobiledevelopment.actex.models.Movie;
-import com.mobiledevelopment.actex.util.ApiUtil;
-import com.mobiledevelopment.actex.util.ListApiUtil;
+import com.mobiledevelopment.actex.utils.ListApiUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -27,9 +24,11 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+@EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @Data
 public class ListMoviesAdapter extends RecyclerView.Adapter<MovieViewHolderHorizontal> {

@@ -5,29 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobiledevelopment.actex.R;
-import com.mobiledevelopment.actex.clients.ListsApiEndpointInterface;
-import com.mobiledevelopment.actex.clients.RetrofitBuilder;
 import com.mobiledevelopment.actex.models.Movie;
-import com.mobiledevelopment.actex.models.lists.ListResponse;
-import com.mobiledevelopment.actex.models.lists.PlaylistResponse;
-import com.mobiledevelopment.actex.util.ApiUtil;
+import com.mobiledevelopment.actex.utils.ApiUtil;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

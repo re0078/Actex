@@ -17,8 +17,8 @@ import com.mobiledevelopment.actex.R;
 import com.mobiledevelopment.actex.models.Movie;
 import com.mobiledevelopment.actex.models.lists.ListResponse;
 import com.mobiledevelopment.actex.models.Playlist;
-import com.mobiledevelopment.actex.util.ApiUtil;
-import com.mobiledevelopment.actex.util.ListApiUtil;
+import com.mobiledevelopment.actex.utils.ApiUtil;
+import com.mobiledevelopment.actex.utils.ListApiUtil;
 
 import java.util.ArrayList;
 import java.util.List;

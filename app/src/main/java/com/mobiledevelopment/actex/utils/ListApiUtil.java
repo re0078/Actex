@@ -1,4 +1,4 @@
-package com.mobiledevelopment.actex.util;
+package com.mobiledevelopment.actex.utils;
 
 import static com.mobiledevelopment.actex.clients.RetrofitBuilder.getListApi;
 

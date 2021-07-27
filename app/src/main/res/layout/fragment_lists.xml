@@ -84,6 +84,7 @@
                 android:shadowDx="1.0"
                 android:shadowDy="1.0"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textColorHighlight="#E91E63"
                 android:textColorHint="#80FFFFFF"
                 android:textColorLink="#FFC107"

@@ -1,28 +1,18 @@
-package com.mobiledevelopment.actex.util;
+package com.mobiledevelopment.actex.utils;
 
 import static com.mobiledevelopment.actex.clients.RetrofitBuilder.getAuthApi;
-import static com.mobiledevelopment.actex.clients.RetrofitBuilder.getListApi;
 
 import android.util.Log;
 
 import com.mobiledevelopment.actex.clients.AccountApiEndpointInterface;
 import com.mobiledevelopment.actex.clients.AuthApiEndpointInterface;
-import com.mobiledevelopment.actex.clients.ListsApiEndpointInterface;
 import com.mobiledevelopment.actex.clients.RetrofitBuilder;
-import com.mobiledevelopment.actex.models.Movie;
-import com.mobiledevelopment.actex.models.SimpleResponse;
 import com.mobiledevelopment.actex.models.User;
 import com.mobiledevelopment.actex.models.account.Account;
-import com.mobiledevelopment.actex.models.lists.ListResponse;
-import com.mobiledevelopment.actex.models.Playlist;
-import com.mobiledevelopment.actex.models.lists.PlaylistResponse;
 import com.mobiledevelopment.actex.models.network.Session;
 import com.mobiledevelopment.actex.models.network.Token;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

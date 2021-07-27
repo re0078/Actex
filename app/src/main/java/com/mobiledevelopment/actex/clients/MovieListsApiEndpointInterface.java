@@ -19,6 +19,4 @@ public interface MovieListsApiEndpointInterface {
 
     @GET("search/movie")
     Call<MovieList> getSearchResults(@Query("api_key") String apikey, @Query("query") String query);
-
-
 }

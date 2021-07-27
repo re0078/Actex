@@ -16,10 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.mobiledevelopment.actex.R;
-import com.mobiledevelopment.actex.models.Movie;
 import com.mobiledevelopment.actex.models.Playlist;
-import com.mobiledevelopment.actex.util.ApiUtil;
-import com.mobiledevelopment.actex.util.ListApiUtil;
+import com.mobiledevelopment.actex.utils.ApiUtil;
+import com.mobiledevelopment.actex.utils.ListApiUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

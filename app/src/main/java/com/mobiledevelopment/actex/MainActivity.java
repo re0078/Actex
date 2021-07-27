@@ -6,20 +6,16 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.mobiledevelopment.actex.util.ApiUtil;
+import com.mobiledevelopment.actex.utils.ApiUtil;
 import com.mobiledevelopment.actex.utils.UIUtils;
 import com.mobiledevelopment.actex.views.MovieDetailActivity;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 

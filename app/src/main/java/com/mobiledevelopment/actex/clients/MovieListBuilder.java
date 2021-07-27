@@ -6,18 +6,16 @@ import com.mobiledevelopment.actex.models.TrendListType;
 import com.mobiledevelopment.actex.models.lists.MovieList;
 import com.mobiledevelopment.actex.views.TrendListAdapter;
 
+import lombok.AllArgsConstructor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.internal.EverythingIsNonNull;
 
 
+@AllArgsConstructor
 public class MovieListBuilder {
-    private String apiKey;
-
-    public MovieListBuilder(String apiKey) {
-        this.apiKey = apiKey;
-    }
-
+    private final String apiKey;
 
     public void getMovieList(TrendListType trendListType, TrendListAdapter adapter) {
         Call<MovieList> movieList;
@@ -41,17 +39,19 @@ public class MovieListBuilder {
     private void setEnqueue(Call<MovieList> enqueueList, final TrendListAdapter adapter) {
         enqueueList.enqueue(new Callback<MovieList>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         adapter.addAll(response.body().results);
                     }
-                } else Log.e("NOt", "" + response.code());
+                } else Log.e("MovieList", "" + response.code());
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<MovieList> call, Throwable t) {
-                Log.i("failes", t.getMessage());
+                Log.e("MovieList", t.getMessage());
             }
         });
     }

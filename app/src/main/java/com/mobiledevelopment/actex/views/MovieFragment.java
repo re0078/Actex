@@ -130,6 +130,18 @@ public class MovieFragment extends Fragment {
 
         // TODO set fav icon based on favourite list
 
+        ImageView shareIcon = view.findViewById(R.id.share_movie);
+        shareIcon.setOnClickListener(v -> Toast.makeText(getContext(), "Coming Soon! Thanks for your patience!", Toast.LENGTH_SHORT).show());
+        UIUtils.setupOnTouchListener(shareIcon);
+
+        ImageView watchLaterIcon = view.findViewById(R.id.watch_later);
+        setupWatchListBtn(watchLaterIcon);
+        UIUtils.setupOnTouchListener(watchLaterIcon);
+
+        ImageView playTrailerIcon = view.findViewById(R.id.playTrailer);
+        playTrailerIcon.setOnClickListener(v -> Toast.makeText(getContext(), "Coming Soon! Thanks for your patience!", Toast.LENGTH_SHORT).show());
+        UIUtils.setupOnTouchListener(playTrailerIcon);
+
         return view;
     }
 
@@ -158,7 +170,7 @@ public class MovieFragment extends Fragment {
             EditText editText = view.findViewById(R.id.create_list_edit_text);
             String[] text_split = editText.getText().toString().split("\n");
             String list_name = text_split[0];
-            String list_desc = String.join("\n" , Arrays.asList(text_split).subList(1, text_split.length));
+            String list_desc = String.join("\n", Arrays.asList(text_split).subList(1, text_split.length));
             editText.setText("");
             createNewList(list_name, list_desc);
             getLists();
@@ -244,17 +256,19 @@ public class MovieFragment extends Fragment {
             Call<Object> addToFav = api.addToWatchList(User.getUser().getAccount().getId(), res.getString(R.string.api_key), User.getUser().getSessionToken().getSessionId(), new WatchlistMovie("movie", movie.getId(), true));
             addToFav.enqueue(new Callback<Object>() {
                 @Override
+                @EverythingIsNonNull
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     if (!response.isSuccessful()) {
-                        Log.e("failed rating", response.message() + response.code() + response.body());
+                        Log.e("failed to add to watchlist", response.message() + response.code() + response.body());
                         Toast.makeText(getContext(), "failed! try again later", Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(getContext(), "added to watch list!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Successfully added to watchlist!", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
+                @EverythingIsNonNull
                 public void onFailure(Call<Object> call, Throwable t) {
-                    Log.e("failed rating", Objects.requireNonNull(t.getMessage()));
+                    Log.e("failed to add to watchlist", Objects.requireNonNull(t.getMessage()));
                     Toast.makeText(getContext(), "failed! try again later", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -273,7 +287,7 @@ public class MovieFragment extends Fragment {
                         Log.e("failed rating", response.message() + response.code() + response.body());
                         Toast.makeText(getContext(), "failed! try again later", Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(getContext(), "added to favourites!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Successfully added to favourites!", Toast.LENGTH_SHORT).show();
                     fav_img_empty.setVisibility(View.INVISIBLE);
                     fav_img_full.setVisibility(View.VISIBLE);
                 }
@@ -299,9 +313,9 @@ public class MovieFragment extends Fragment {
                         Log.e("failed rating", response.message() + response.code() + response.body());
                         Toast.makeText(getContext(), "failed! try again later", Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(getContext(), "added to favourites!", Toast.LENGTH_SHORT).show();
-                    fav_img_empty.setVisibility(View.INVISIBLE);
-                    fav_img_full.setVisibility(View.VISIBLE);
+                    Toast.makeText(getContext(), "Successfully removed from favourites!", Toast.LENGTH_SHORT).show();
+                    fav_img_empty.setVisibility(View.VISIBLE);
+                    fav_img_full.setVisibility(View.INVISIBLE);
                 }
 
                 @Override
@@ -311,9 +325,6 @@ public class MovieFragment extends Fragment {
                     Toast.makeText(getContext(), "failed! try again later", Toast.LENGTH_SHORT).show();
                 }
             });
-            Toast.makeText(getContext(), "removed from favourites!", Toast.LENGTH_SHORT).show();
-            fav_img_empty.setVisibility(View.VISIBLE);
-            fav_img_full.setVisibility(View.INVISIBLE);
         });
     }
 
@@ -360,7 +371,10 @@ public class MovieFragment extends Fragment {
                         for (Cast cast : casts) {
                             builder = builder.append(cast.getName()).append(" as : ").append(cast.getCharacter()).append("\n\n");
                         }
-                        castsTextView.setText(builder.toString());
+                        if (casts.isEmpty())
+                            castsTextView.setText(res.getString(R.string.casts_unavailable));
+                        else
+                            castsTextView.setText(builder.toString());
                         Log.d("setCasts", builder.toString());
                     }
                 } else castsTextView.setText(R.string.casts_unavailable);
@@ -389,9 +403,11 @@ public class MovieFragment extends Fragment {
                     for (Review review : reviewsList) {
                         builder = builder.append(review.getAuthor()).append(" : ").append(review.getContent()).append("\n\n");
                     }
-                    reviewsTextView.setText(builder.toString());
-                }
-                else reviewsTextView.setText(R.string.no_review_available);
+                    if (reviewsList.isEmpty())
+                        reviewsTextView.setText(res.getString(R.string.reviews_unavailable));
+                    else
+                        reviewsTextView.setText(builder.toString());
+                } else reviewsTextView.setText(R.string.reviews_unavailable);
             }
 
             @Override

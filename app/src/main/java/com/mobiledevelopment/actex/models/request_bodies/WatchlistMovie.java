@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class WatchlistMovie {
     @SerializedName("media_type")
-    private String mediaType;
+    private final String mediaType;
     @SerializedName("media_id")
-    private Integer mediaId;
+    private final Integer mediaId;
     @SerializedName("watchlist")
-    private Boolean watchlist;
+    private final Boolean watchlist;
 
 
     public WatchlistMovie(String mediaType, Integer mediaId, Boolean watchlist) {
