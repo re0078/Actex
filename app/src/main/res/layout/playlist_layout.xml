@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/playlist_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,8 +11,8 @@
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/playlist_play"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="43dp"
+        android:layout_height="41dp"
         android:background="@drawable/play_button_background"
         android:contentDescription="@string/play_button_desc"
         android:src="@drawable/ic_baseline_play_arrow_30"
@@ -21,9 +22,10 @@
 
     <ImageView
         android:id="@+id/playlist_preview"
-        android:layout_width="@dimen/playlist_holder_height"
+        android:layout_width="@dimen/playlist_holder_width"
         android:layout_height="@dimen/playlist_holder_height"
         android:contentDescription="@string/playlist_preview_desc"
+        android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@id/playlist_layout"
         app:layout_constraintStart_toStartOf="@id/playlist_layout"
         app:layout_constraintTop_toTopOf="@id/playlist_layout" />
@@ -39,7 +41,7 @@
         android:textColor="@color/main_color"
         android:textColorHint="#80FFC107"
         android:textSize="22sp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toStartOf="@id/rename_playlist_button"
         app:layout_constraintStart_toEndOf="@id/playlist_preview"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,14 +62,13 @@
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/delete_playlist_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_baseline_delete_30"
-        android:background="@drawable/playlist_cornered_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/playlist_play"
+        android:layout_width="41dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="40dp"
-        />
+        android:background="@drawable/playlist_cornered_background"
+        android:src="@drawable/ic_baseline_delete_30"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playlist_play" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
