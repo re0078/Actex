@@ -47,7 +47,7 @@
            app:layout_constraintTop_toBottomOf="@+id/country_year_length_text_view">
 
            <TextView
-               android:id="@+id/item_cat1"
+               android:id="@+id/movie_genre1"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_gravity="center_horizontal"
@@ -55,13 +55,13 @@
                android:background="@drawable/shape_kind"
                android:gravity="center_horizontal"
                android:padding="10dp"
-               android:text="Adventure"
+               android:text="-"
                android:textColor="@color/gray"
                android:textSize="10dp"
                android:textStyle="bold" />
 
            <TextView
-               android:id="@+id/item_cat2"
+               android:id="@+id/movie_genre2"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_gravity="center_horizontal"
@@ -69,13 +69,13 @@
                android:background="@drawable/shape_kind"
                android:gravity="center_horizontal"
                android:padding="10dp"
-               android:text="Family"
+               android:text="-"
                android:textColor="@color/gray"
                android:textSize="10dp"
                android:textStyle="bold" />
 
            <TextView
-               android:id="@+id/item_cat3"
+               android:id="@+id/movie_genre3"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_gravity="center_horizontal"
@@ -83,7 +83,7 @@
                android:background="@drawable/shape_kind"
                android:gravity="center_horizontal"
                android:padding="10dp"
-               android:text="Fantasy"
+               android:text="-"
                android:textColor="@color/gray"
                android:textSize="10dp"
                android:textStyle="bold" />
@@ -98,14 +98,19 @@
            app:srcCompat="@drawable/ic_baseline_share_36" />
 
        <RatingBar
-           android:id="@+id/item_rating_bar"
+           android:id="@+id/imdb_rating_bar"
            style="?android:attr/ratingBarStyleSmall"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_gravity="center"
+           android:scaleX="2"
+           android:scaleY="2"
+           android:layout_marginTop="10dp"
            android:isIndicator="true"
            android:numStars="10"
-           android:rating="8.1"
+           android:stepSize="20"
+           android:scrollbarSize="50dp"
+           android:rating="0"
            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
@@ -113,6 +118,7 @@
            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
             android:id="@+id/movie_summary"
@@ -125,31 +131,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Screenshots"
-            android:textColor="@color/white"
-            android:elevation="5dp"
-            android:paddingTop="10dp"
-            android:textSize="16dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/item_desc2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lorem"
-            android:textColor="@color/white"
-            android:elevation="3dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"/>
+        <include layout="@layout/item_my_list"/>
 
     </LinearLayout>
 

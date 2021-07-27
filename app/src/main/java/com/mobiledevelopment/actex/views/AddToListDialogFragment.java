@@ -51,14 +51,11 @@ public class AddToListDialogFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //recyclerView = view.findViewById(R.id.recycler_view);
-        AddToListAdapter addToListAdapter = new AddToListAdapter(new ArrayList<ListResult>());
+        AddToListAdapter addToListAdapter = new AddToListAdapter(new ArrayList<>());
         final int movieId = getArguments().getInt("movieId");
-        OnListItemClickedListener onListItemClickedListener = new OnListItemClickedListener() {
-            @Override
-            public void onListClick(ListResult listResult) {
-                Toast.makeText(getContext(), "Added", Toast.LENGTH_LONG).show();
-                addToList(listResult, movieId);
-            }
+        OnListItemClickedListener onListItemClickedListener = listResult -> {
+            Toast.makeText(getContext(), "Added", Toast.LENGTH_LONG).show();
+            addToList(listResult, movieId);
         };
         addToListAdapter.setOnListItemClickedListener(onListItemClickedListener);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

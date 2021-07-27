@@ -8,10 +8,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBuilder {
     private static final String API_VER_3 = "https://api.themoviedb.org/3/";
+    private static final String API_VER_4 = "https://api.themoviedb.org/4/";
 
     static Gson gson = new GsonBuilder().setLenient().create();
     private static final Retrofit RETROFIT = new Retrofit.Builder()
             .baseUrl(API_VER_3)
+            .addConverterFactory(GsonConverterFactory.create(gson)).build();
+
+    private static final Retrofit RETROFIT_4 = new Retrofit.Builder()
+            .baseUrl(API_VER_4)
             .addConverterFactory(GsonConverterFactory.create(gson)).build();
 
 

@@ -1,26 +1,24 @@
 package com.mobiledevelopment.actex.views;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobiledevelopment.actex.R;
-import com.mobiledevelopment.actex.clients.ListsApiEndpointInterface;
-import com.mobiledevelopment.actex.clients.RetrofitBuilder;
 import com.mobiledevelopment.actex.models.Movie;
 import com.mobiledevelopment.actex.models.lists.ListResponse;
 import com.mobiledevelopment.actex.models.Playlist;
 import com.mobiledevelopment.actex.util.ApiUtil;
+import com.mobiledevelopment.actex.util.ListApiUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +31,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PlaylistFragment extends Fragment {
     private static final String TAG = "PLAYLIST_FRAGMENT";
-    ListsApiEndpointInterface listsApiEndpointInterface;
     private RecyclerView recyclerView;
     private PlaylistAdapter adapter;
     private ApiUtil apiUtil;
-    private Activity activity;
+    private ListApiUtil listApiUtil;
+    private FragmentActivity activity;
 
     public static PlaylistFragment newInstance() {
         PlaylistFragment fragment = new PlaylistFragment();
@@ -49,12 +47,12 @@ public class PlaylistFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = PlaylistAdapter.getInstance();
-        adapter.setPlaylists(new ArrayList<>());
-        listsApiEndpointInterface = RetrofitBuilder.getListApi();
-        apiUtil = ApiUtil.getInstance();
         activity = getActivity();
         assert activity != null;
+        adapter = PlaylistAdapter.getInstance(activity);
+        adapter.setPlaylists(new ArrayList<>());
+        apiUtil = ApiUtil.getInstance();
+        listApiUtil = ListApiUtil.getInstance();
     }
 
     @Nullable
@@ -70,20 +68,48 @@ public class PlaylistFragment extends Fragment {
 
     private void getFavoriteMovies() {
         CompletableFuture<ListResponse<Movie>> moviesFuture = new CompletableFuture<>();
-        activity.runOnUiThread(() -> apiUtil.getFavoriteMovies(getString(R.string.api_key), moviesFuture));
+        activity.runOnUiThread(() -> listApiUtil.getFavoriteMovies(getString(R.string.api_key), moviesFuture));
         moviesFuture.whenComplete((result, t) -> {
             if (Objects.nonNull(result)) {
-                if (result.getResults().isEmpty()) {
+                List<Movie> movies = result.getResults();
+                if (movies.isEmpty()) {
                     Toast.makeText(getContext(), "You don't have any favorites", Toast.LENGTH_LONG).show();
                 } else {
                     Playlist favoriteMoviesPlaylist = Playlist.builder()
                             .name(getString(R.string.favorite_list_title))
-                            .itemCount(result.getResults().size())
+                            .itemCount(movies.size())
                             .fixedName(true)
-                            .posterPath((String) result.getResults().get(0).getPosterPath()).build();
+                            .posterPath((String) movies.get(0).getPosterPath())
+                            .movies(movies)
+                            .build();
                     adapter.setPlaylists(new ArrayList<>());
-                    adapter.getPlaylists().add(0, favoriteMoviesPlaylist);
-                    adapter.notifyItemInserted(0);
+                    adapter.getPlaylists().add(favoriteMoviesPlaylist);
+                    adapter.notifyDataSetChanged();
+                }
+            } else {
+                Toast.makeText(getContext(), "Unable to fetch playlists", Toast.LENGTH_LONG).show();
+            }
+            getWatchlistMovies();
+        });
+    }
+
+    private void getWatchlistMovies() {
+        CompletableFuture<ListResponse<Movie>> moviesFuture = new CompletableFuture<>();
+        activity.runOnUiThread(() -> listApiUtil.getWatchlistMovies(getString(R.string.api_key), moviesFuture));
+        moviesFuture.whenComplete((result, t) -> {
+            if (Objects.nonNull(result)) {
+                List<Movie> movies = result.getResults();
+                if (movies.isEmpty()) {
+                    Toast.makeText(getContext(), "Your watchlist is empty", Toast.LENGTH_LONG).show();
+                } else {
+                    Playlist watchlistMoviesPlaylist = Playlist.builder()
+                            .name(getString(R.string.watch_list_title))
+                            .itemCount(movies.size())
+                            .fixedName(true)
+                            .posterPath((String) movies.get(0).getPosterPath())
+                            .movies(movies).build();
+                    adapter.getPlaylists().add(watchlistMoviesPlaylist);
+                    adapter.notifyDataSetChanged();
                 }
             } else {
                 Toast.makeText(getContext(), "Unable to fetch playlists", Toast.LENGTH_LONG).show();
@@ -94,7 +120,7 @@ public class PlaylistFragment extends Fragment {
 
     private void getPlaylists() {
         CompletableFuture<ListResponse<Playlist>> listsFuture = new CompletableFuture<>();
-        activity.runOnUiThread(() -> apiUtil.getPlaylists(getString(R.string.api_key), listsFuture));
+        activity.runOnUiThread(() -> listApiUtil.getPlaylists(getString(R.string.api_key), listsFuture));
         listsFuture.whenComplete((result, t) -> {
             if (Objects.nonNull(result)) {
                 List<Playlist> playlists = result.getResults();
@@ -102,9 +128,8 @@ public class PlaylistFragment extends Fragment {
                 if (playlists.isEmpty()) {
                     Toast.makeText(getContext(), "You don't have any playlists", Toast.LENGTH_LONG).show();
                 } else {
-                    int currentSize = adapter.getPlaylists().size();
                     adapter.getPlaylists().addAll(playlists);
-                    adapter.notifyItemRangeInserted(currentSize, playlists.size());
+                    adapter.notifyDataSetChanged();
                 }
             } else {
                 Toast.makeText(getContext(), "Unable to fetch playlists", Toast.LENGTH_LONG).show();

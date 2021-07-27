@@ -4,14 +4,20 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/fragment_playlist.xml" value="0.278125" />
+        <entry key="app/src/main/res/drawable/ic_baseline_check_box_24.xml" value="0.19739583333333333" />
+        <entry key="app/src/main/res/drawable/ic_baseline_check_box_30.xml" value="0.19739583333333333" />
+        <entry key="app/src/main/res/drawable/ic_baseline_delete_30.xml" value="0.19739583333333333" />
         <entry key="app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.278125" />
         <entry key="app/src/main/res/drawable/ic_baseline_play_arrow_24.xml" value="0.278125" />
+        <entry key="app/src/main/res/drawable/ic_baseline_play_arrow_36.xml" value="0.19739583333333333" />
         <entry key="app/src/main/res/drawable/ic_baseline_power_settings_new_24.xml" value="0.24895833333333334" />
+        <entry key="app/src/main/res/drawable/ic_baseline_power_settings_new_36.xml" value="0.19739583333333333" />
         <entry key="app/src/main/res/drawable/login_button.xml" value="0.20104166666666667" />
         <entry key="app/src/main/res/drawable/login_button_background.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/drawable/login_input_background.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/drawable/play_button.xml" value="0.278125" />
         <entry key="app/src/main/res/drawable/play_button_background.xml" value="0.278125" />
+        <entry key="app/src/main/res/drawable/playlist_cornered_background.xml" value="0.19739583333333333" />
         <entry key="app/src/main/res/drawable/playlist_name_background.xml" value="0.278125" />
         <entry key="app/src/main/res/drawable/playlist_section_background.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.11322188449848024" />
@@ -22,6 +28,10 @@
         <entry key="app/src/main/res/layout/fragment_lists.xml" value="0.2328125" />
         <entry key="app/src/main/res/layout/fragment_movie.xml" value="0.10960144927536232" />
         <entry key="app/src/main/res/layout/fragment_playlist.xml" value="0.23369565217391305" />
+        <entry key="app/src/main/res/layout/fragment_playlist_movies.xml" value="0.19947916666666668" />
+        <entry key="app/src/main/res/layout/item_movie.xml" value="0.19895833333333332" />
+        <entry key="app/src/main/res/layout/movie_layout.xml" value="0.17572463768115942" />
+        <entry key="app/src/main/res/layout/playlist_detailed_layout.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/layout/playlist_layout.xml" value="0.25" />
       </map>
     </option>

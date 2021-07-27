@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_item_header"
     android:layout_width="match_parent"
     android:layout_height="500dp">
@@ -11,26 +10,35 @@
         android:layout_height="match_parent">
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/shimmer_movie_img"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:shimmer_auto_start="false"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/movie_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/dawn_of_planets_of_apes" />
+                app:srcCompat="@drawable/loading_movie_image" />
         </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <ImageView
+            android:id="@+id/movie_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/dawn_of_planets_of_apes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/grad_up"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/shimmer_view_container" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -81,10 +89,11 @@
             app:srcCompat="@drawable/imdb_resized" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_view_container"
+            android:id="@+id/shimmer_imdb_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:shimmer_auto_start="false"
+            app:shimmer_base_alpha="0.6"
+            app:shimmer_duration="2000"
             app:layout_constraintBottom_toTopOf="@+id/shimmer_movie_name"
             app:layout_constraintStart_toEndOf="@id/imdb_logo">
 
@@ -94,9 +103,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="9dp"
-                android:text="8.1/10"
+                android:text="@string/imdb_rating_prompt"
                 android:textColor="@color/gold"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
         </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -104,7 +113,8 @@
             android:id="@+id/shimmer_movie_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:shimmer_auto_start="false"
+            app:shimmer_base_alpha="0.6"
+            app:shimmer_duration="2000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -115,11 +125,12 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="20dp"
-                android:text="Dawn of the planet of the apes"
+                android:text="@string/movie_name_prompt"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </com.facebook.shimmer.ShimmerFrameLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

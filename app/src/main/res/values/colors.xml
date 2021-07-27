@@ -22,4 +22,5 @@
     <color name="yellowTitle">#f5c611</color>
     <color name="ratingColor">#109D3D</color>
     <color name="backgroundDark">#1d1d27</color>
+    <color name="main_color">#FFC107</color>
 </resources>
