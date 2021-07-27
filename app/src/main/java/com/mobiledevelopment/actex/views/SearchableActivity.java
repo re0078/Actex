@@ -6,8 +6,6 @@ import android.util.Log;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.mobiledevelopment.actex.R;
 import com.mobiledevelopment.actex.clients.MovieListsApiEndpointInterface;
@@ -35,12 +33,15 @@ public class SearchableActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate: ");
         searchResultLv = findViewById(R.id.search_result_lv);
         adapter = new SearchResultAdapter(this, new ArrayList<Movie>());
-        OnMovieClickListener onMovieClickListener = movie -> {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            Fragment fragment = MovieFragment.newInstance(movie);
-            ft.replace(R.id.fl_main_fragment, fragment).addToBackStack(null).commit();
-        };
-        adapter.setOnClickListener(onMovieClickListener);
+        adapter.setOnClickListener(new OnMovieClickListener() {
+            @Override
+            public void onMovieClick(Movie movie) {
+                Log.i(TAG, "onItemClick: " + movie);
+                Intent intent = new Intent(SearchableActivity.this, MovieDetailActivity.class);
+                intent.putExtra("searchRes", movie);
+                startActivity(intent);
+            }
+        });
         searchResultLv.setAdapter(adapter);
         Intent intent = getIntent();
         if (intent.hasExtra("searchQuery")){
