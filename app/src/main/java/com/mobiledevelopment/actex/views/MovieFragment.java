@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -55,8 +54,6 @@ public class MovieFragment extends Fragment {
 
     private Movie movie;
     private Resources res;
-    private TextView casts;
-    private TextView reviews;
     private AddToListAdapter addToListAdapter;
 
     public static MovieFragment newInstance(Movie movie) {
@@ -91,6 +88,12 @@ public class MovieFragment extends Fragment {
         TextView summary = view.findViewById(R.id.movie_summary);
         summary.setText(movie.getOverview());
 
+        TextView casts = view.findViewById(R.id.movie_casts);
+        setupCasts(casts);
+
+        TextView reviews = view.findViewById(R.id.movie_reviews);
+        setupReviews(reviews);
+
         TextView brief_attrs = view.findViewById(R.id.country_year_length_text_view);
         String country = "-";
         if (movie.getProductionCountries() != null)
@@ -106,7 +109,7 @@ public class MovieFragment extends Fragment {
 
         ImageView fav_empty = view.findViewById(R.id.fav_empty);
         ImageView fav_full = view.findViewById(R.id.fav_full);
-        setupFavButtons(fav_empty, fav_full);
+        setupFavouriteButtons(fav_empty, fav_full);
 
         setupAddToList(view, inflater, container);
 
@@ -213,15 +216,6 @@ public class MovieFragment extends Fragment {
         });
     }
 
-    private void setUpCustomListBtn(ImageView customListImgBtn) {
-        customListImgBtn.setOnClickListener(v -> showAddToListDialog());
-    }
-
-    private void showAddToListDialog() {
-        AddToListDialogFragment addToListDialogFragment = AddToListDialogFragment.newInstance("Some Title", movie.getId());
-        addToListDialogFragment.show(getChildFragmentManager(), "fragment_edit_name");
-    }
-
     private void addToList(final ListResult listResult, int movieId) {
         Call<Object> addToList = RetrofitBuilder.getCreateListApi().addMovieToList(listResult.getId().toString(), User.getApiKey(), User.getUser().getSessionToken().getSessionId(), new AddToListBody(movieId));
         addToList.enqueue(new Callback<Object>() {
@@ -267,7 +261,7 @@ public class MovieFragment extends Fragment {
         });
     }
 
-    private void setupFavButtons(final ImageView fav_img_empty, final ImageView fav_img_full) {
+    private void setupFavouriteButtons(final ImageView fav_img_empty, final ImageView fav_img_full) {
         fav_img_empty.setOnClickListener(v -> {
             AccountApiEndpointInterface api = RetrofitBuilder.getAccountApi();
             Call<Object> addToFav = api.addToFav(User.getUser().getAccount().getId(), res.getString(R.string.api_key), User.getUser().getSessionToken().getSessionId(), new FavouriteMovie("movie", movie.getId(), true));
@@ -349,62 +343,65 @@ public class MovieFragment extends Fragment {
         });
     }
 
-    private void setMovieCastsAndReviews() {
+    private void setupCasts(TextView castsTextView) {
         MovieDetailsApi movieDetailsApi = RetrofitBuilder.getMovieDetailApi();
         Call<CastsList> castsListCall = movieDetailsApi.getCastsList(movie.getId(), res.getString(R.string.api_key));
-        Call<Reviews> reviewsCall = movieDetailsApi.getReviews(movie.getId(), res.getString(R.string.api_key));
         castsListCall.enqueue(new Callback<CastsList>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<CastsList> call, Response<CastsList> response) {
                 if (response.isSuccessful()) {
                     CastsList castsList = response.body();
                     if (castsList != null) {
-                        setCasts(castsList.getCast().
-                                subList(0, castsList.getCast().size() < 8 ? castsList.getCast().size() : 7));
-                        Log.e("casts, get", String.valueOf(response.message()));
+                        List<Cast> casts = castsList.getCast().
+                                subList(0, castsList.getCast().size() < 8 ? castsList.getCast().size() : 7);
+                        Log.d("casts, get", response.message());
+                        StringBuilder builder = new StringBuilder();
+                        for (Cast cast : casts) {
+                            builder = builder.append(cast.getName()).append(" as : ").append(cast.getCharacter()).append("\n\n");
+                        }
+                        castsTextView.setText(builder.toString());
+                        Log.d("setCasts", builder.toString());
                     }
-                } else {
-
-                }
+                } else castsTextView.setText(R.string.casts_unavailable);
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<CastsList> call, Throwable t) {
-
+                Toast.makeText(getContext(), "Unable to fetch casts", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setupReviews(TextView reviewsTextView) {
+        MovieDetailsApi movieDetailsApi = RetrofitBuilder.getMovieDetailApi();
+        Call<Reviews> reviewsCall = movieDetailsApi.getReviews(movie.getId(), res.getString(R.string.api_key));
+
         reviewsCall.enqueue(new Callback<Reviews>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<Reviews> call, Response<Reviews> response) {
                 Reviews reviews = response.body();
                 if (reviews != null) {
-                    setReviews(reviews.getReviews());
+                    List<Review> reviewsList = reviews.getReviews();
+                    StringBuilder builder = new StringBuilder();
+                    for (Review review : reviewsList) {
+                        builder = builder.append(review.getAuthor()).append(" : ").append(review.getContent()).append("\n\n");
+                    }
+                    reviewsTextView.setText(builder.toString());
                 }
+                else reviewsTextView.setText(R.string.no_review_available);
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<Reviews> call, Throwable t) {
-
+                Toast.makeText(getContext(), "Unable to fetch reviews", Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
-    private void setCasts(List<Cast> casts) {
-        StringBuilder builder = new StringBuilder();
-        for (Cast cast : casts) {
-            builder = builder.append(cast.getName()).append(" as : ").append(cast.getCharacter()).append("\n\n");
-        }
-        this.casts.setText(builder.toString());
-        Log.e("setCasts", builder.toString());
 
-    }
-
-    private void setReviews(List<Review> reviews) {
-        StringBuilder builder = new StringBuilder();
-        for (Review review : reviews) {
-            builder = builder.append(review.getAuthor()).append(" : ").append(review.getContent()).append("\n\n");
-        }
-        this.reviews.setText(builder.toString());
     }
 
 
