@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black_700"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,6 +24,7 @@
             android:shadowDx="1.0"
             android:shadowDy="1.0"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textColorHighlight="#E91E63"
             android:textColorHint="#80FFFFFF"
             android:textColorLink="#FFC107"
@@ -37,6 +39,7 @@
             android:layout_height="wrap_content"
             android:autofillHints="password"
             android:hint="@string/password"
+            android:textColor="@color/white"
             android:text="12345678"
             android:background="@drawable/login_input_background"
             android:inputType="textPassword"

@@ -97,7 +97,7 @@ public class MovieFragment extends Fragment {
         TextView brief_attrs = view.findViewById(R.id.country_year_length_text_view);
         String country = "-";
         if (movie.getProductionCountries() != null)
-            country = ((ProductionCountry) movie.getProductionCountries().get(0)).getName();
+            country = movie.getProductionCountries().get(0).getName();
         String year = movie.getReleaseDate().split("-")[0];
         String length = "- min";
         if (movie.getRuntime() != null)
@@ -331,26 +331,25 @@ public class MovieFragment extends Fragment {
     private void setupRatingBar(RatingBar ratingBar) {
         ratingBar.setOnRatingBarChangeListener((ratingBar1, v, b) -> {
             MovieDetailsApi api = RetrofitBuilder.getMovieDetailApi();
-            Call<Object> rate = api.rateMovie(movie.getId(), res.getString(R.string.api_key), User.getUser().getSessionToken().getSessionId(), new Rate((int) v * 2));
+            Call<Object> rate = api.rateMovie(movie.getId(), res.getString(R.string.api_key), User.getUser().getSessionToken().getSessionId(), new Rate((int) v));
             rate.enqueue(new Callback<Object>() {
                 @Override
                 @EverythingIsNonNull
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     if (!response.isSuccessful()) {
-                        Log.e("failed rating", response.message() + response.code() + response.body());
+                        Log.e("RatingBar", response.message() + response.code() + response.body());
                         Toast.makeText(getContext(), "rating failed! try again later", Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(getContext(), "rated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "This movie is rated.", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 @EverythingIsNonNull
                 public void onFailure(Call<Object> call, Throwable t) {
-                    Log.e("failed rating", Objects.requireNonNull(t.getMessage()));
+                    Log.e("RatingBar", Objects.requireNonNull(t.getMessage()));
                     Toast.makeText(getContext(), "rating failed! try again later", Toast.LENGTH_SHORT).show();
                 }
             });
-
         });
     }
 

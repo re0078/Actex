@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_marginTop="20dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_detail">
 
     <LinearLayout
@@ -13,184 +13,182 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-   <androidx.constraintlayout.widget.ConstraintLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_margin="20dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
 
-       <TextView
-           android:id="@+id/director_text_view"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Director: Matt Reveves"
-           android:textColor="@color/gray"
-           android:textStyle="bold"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent" />
-       <TextView
-           android:id="@+id/country_year_length_text_view"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="USA, 2014, 130 min"
-           android:textColor="@color/gray"
-           android:textStyle="bold"
-           android:layout_marginTop="5dp"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/director_text_view" />
+            <TextView
+                android:id="@+id/director_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Director: Matt Reveves"
+                android:textColor="@color/gray"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-       <LinearLayout
-           android:id="@+id/linearLayout"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="10dp"
-           app:layout_constraintEnd_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/country_year_length_text_view">
+            <TextView
+                android:id="@+id/country_year_length_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="USA, 2014, 130 min"
+                android:textColor="@color/gray"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/director_text_view" />
 
-           <TextView
-               android:id="@+id/movie_genre1"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_horizontal"
-               android:layout_marginTop="15dp"
-               android:background="@drawable/shape_kind"
-               android:gravity="center_horizontal"
-               android:padding="10dp"
-               android:text="-"
-               android:textColor="@color/gray"
-               android:textSize="10dp"
-               android:textStyle="bold" />
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/country_year_length_text_view">
 
-           <TextView
-               android:id="@+id/movie_genre2"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_horizontal"
-               android:layout_marginTop="15dp"
-               android:background="@drawable/shape_kind"
-               android:gravity="center_horizontal"
-               android:padding="10dp"
-               android:text="-"
-               android:textColor="@color/gray"
-               android:textSize="10dp"
-               android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/movie_genre1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/shape_kind"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="-"
+                    android:textColor="@color/gray"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
 
-           <TextView
-               android:id="@+id/movie_genre3"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_horizontal"
-               android:layout_marginTop="15dp"
-               android:background="@drawable/shape_kind"
-               android:gravity="center_horizontal"
-               android:padding="10dp"
-               android:text="-"
-               android:textColor="@color/gray"
-               android:textSize="10dp"
-               android:textStyle="bold" />
-       </LinearLayout>
+                <TextView
+                    android:id="@+id/movie_genre2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/shape_kind"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="-"
+                    android:textColor="@color/gray"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
 
-       <ImageView
-           android:id="@+id/share_movie"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_alignParentEnd="true"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintTop_toTopOf="parent"
-           app:srcCompat="@drawable/ic_baseline_share_36" />
+                <TextView
+                    android:id="@+id/movie_genre3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/shape_kind"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="-"
+                    android:textColor="@color/gray"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-       <ImageView
-           android:id="@+id/watch_later"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_alignParentEnd="true"
-           android:layout_marginEnd="10dp"
-           app:layout_constraintEnd_toStartOf="@id/share_movie"
-           app:layout_constraintTop_toTopOf="parent"
-           app:srcCompat="@drawable/ic_baseline_playlist_add_36" />
+            <ImageView
+                android:id="@+id/share_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_share_36" />
 
-       <RatingBar
-           android:id="@+id/imdb_rating_bar"
-           style="?android:attr/ratingBarStyleSmall"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:scaleX="1.5"
-           android:scaleY="1.5"
-           android:layout_marginTop="15dp"
-           android:isIndicator="true"
-           android:numStars="10"
-           android:stepSize="20"
-           android:scrollbarSize="50dp"
-           android:rating="0"
-           app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           android:theme="@style/RatingBar"
-           app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            <ImageView
+                android:id="@+id/watch_later"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toStartOf="@id/share_movie"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_playlist_add_36" />
 
-   </androidx.constraintlayout.widget.ConstraintLayout>
+            <RatingBar
+                android:id="@+id/imdb_rating_bar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:isIndicator="false"
+                android:numStars="10"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:scrollbarSize="50dp"
+                android:stepSize="1"
+                android:theme="@style/RatingBar"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="@string/summary_text"
-            android:textStyle="bold"
-            android:layout_marginStart="20dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/movie_summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lorem"
-            android:textColor="@color/gray"
-            android:elevation="3dp"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:elevation="3dp"
+            android:text="@string/lorem"
+            android:textColor="@color/gray" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="@string/movie_casts"
-            android:textStyle="bold"
-            android:layout_marginStart="20dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/movie_casts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lorem"
-            android:textColor="@color/gray"
-            android:elevation="3dp"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:elevation="3dp"
+            android:text="@string/lorem"
+            android:textColor="@color/gray" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="@string/movie_reviews"
-            android:textStyle="bold"
-            android:layout_marginStart="20dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/movie_reviews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lorem"
-            android:textColor="@color/gray"
-            android:elevation="3dp"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"/>
-
-<!--        <include layout="@layout/item_my_list"/>-->
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:elevation="3dp"
+            android:text="@string/lorem"
+            android:textColor="@color/gray" />
 
     </LinearLayout>
 
