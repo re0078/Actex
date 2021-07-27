@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -59,10 +60,20 @@ public class TrendListsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View listFragment = inflater.inflate(R.layout.fragment_lists, container, false);
+        ImageButton search = listFragment.findViewById(R.id.search_button);
+        EditText editText = listFragment.findViewById(R.id.search_edit);
         ImageButton playlists = listFragment.findViewById(R.id.playlist_list);
         ImageButton logout = listFragment.findViewById(R.id.logout_button);
         logout.setOnClickListener(view -> logoutProcess());
         playlists.setOnClickListener(view -> setupPlaylists());
+        search.setOnClickListener(view -> {
+            if (!editText.getText().equals("")){
+                Intent intent = new Intent(this.getActivity(), SearchableActivity.class);
+                intent.putExtra("searchQuery", editText.getText().toString());
+                editText.setText("");
+                startActivity(intent);
+            }
+        });
         upcoming = listFragment.findViewById(R.id.upcoming_recycler);
         mostPopular = listFragment.findViewById(R.id.most_popular_recycler);
         topRated = listFragment.findViewById(R.id.top_rated_recycler);

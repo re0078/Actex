@@ -67,6 +67,42 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/search_edit"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:autofillHints="What to search"
+                android:background="@drawable/login_input_background"
+                android:hint="What to search"
+                android:inputType="text"
+                android:minHeight="50dp"
+                android:shadowDx="1.0"
+                android:shadowDy="1.0"
+                android:textAlignment="center"
+                android:textColorHighlight="#E91E63"
+                android:textColorHint="#80FFFFFF"
+                android:textColorLink="#FFC107"
+                android:layout_marginStart="30dp"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@color/black_700"
+                android:contentDescription="@string/search_desc"
+                android:src="@drawable/ic_baseline_search_24"
+                android:layout_marginStart="5dp"
+                android:tooltipText="@string/search_desc"
+                 />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/textView2"
             style="@style/titles"
@@ -74,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:elevation="15dp"
-
+            android:layout_marginTop="10dp"
             android:text="@string/most_popular_movies"
             app:layout_constraintBottom_toTopOf="@+id/most_popular_recycler"
             app:layout_constraintStart_toStartOf="parent" />
